@@ -1,0 +1,47 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Clients Section
+--------------------------------------------------------------*/
+.clients {
+  .client-item {
+    padding: 1.5rem;
+    text-align: center;
+    height: 100%;
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      max-width: 100%;
+      transition: all 0.3s ease-in-out;
+      filter: grayscale(100);
+      opacity: 0.8;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-color);
+
+      img {
+        filter: grayscale(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  @media (max-width: 1199px) {
+    .client-item {
+      padding: 1.25rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .client-item {
+      padding: 1rem;
+    }
+  }
+}

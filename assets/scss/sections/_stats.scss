@@ -1,0 +1,229 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Stats Section
+--------------------------------------------------------------*/
+.stats {
+  .section-headline {
+    color: var(--heading-color);
+    font-family: var(--heading-font);
+    font-size: 2.75rem;
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .section-description {
+    color: color-mix(in srgb, var(--default-color), transparent 20%);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .stats-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface-color);
+  }
+
+  .stat-item {
+    padding: 3rem 2.5rem;
+    position: relative;
+    transition: all 0.4s ease;
+
+    &:nth-child(1) {
+      border-right: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+      border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    }
+
+    &:nth-child(2) {
+      border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    }
+
+    &:nth-child(3) {
+      border-right: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    }
+
+    &:hover {
+      background: color-mix(in srgb, var(--accent-color), transparent 97%);
+      transform: translateY(-2px);
+    }
+
+    .stat-content {
+      text-align: center;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stat-number {
+      color: var(--accent-color);
+      font-family: var(--heading-font);
+      font-size: 3.5rem;
+      font-weight: 200;
+      line-height: 1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+
+      .purecounter {
+        font-size: inherit;
+        color: inherit;
+      }
+    }
+
+    .stat-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--accent-color);
+      margin: 0 auto 1.5rem auto;
+      opacity: 0.6;
+    }
+
+    .stat-label {
+      color: var(--heading-color);
+      font-family: var(--heading-font);
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    .stat-description {
+      color: color-mix(in srgb, var(--default-color), transparent 30%);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      font-weight: 300;
+      margin: 0;
+      max-width: 200px;
+    }
+  }
+
+  .achievement-badge {
+    background: var(--surface-color);
+    border: 1px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+    border-radius: 8px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.4s ease;
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--accent-color), transparent 60%);
+      transform: translateY(-3px);
+    }
+
+    .badge-icon {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+
+    .badge-title {
+      color: var(--heading-color);
+      font-family: var(--heading-font);
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    .badge-text {
+      color: color-mix(in srgb, var(--default-color), transparent 25%);
+      font-size: 1rem;
+      line-height: 1.6;
+      font-weight: 300;
+      margin: 0;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .section-headline {
+      font-size: 2.25rem;
+    }
+
+    .stats-container {
+      gap: 0;
+    }
+
+    .stat-item {
+      padding: 2.5rem 2rem;
+
+      .stat-number {
+        font-size: 3rem;
+      }
+
+      .stat-description {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section-headline {
+      font-size: 1.875rem;
+    }
+
+    .section-description {
+      font-size: 1rem;
+    }
+
+    .stats-container {
+      grid-template-columns: 1fr;
+    }
+
+    .stat-item {
+      padding: 2rem 1.5rem;
+
+      &:nth-child(1) {
+        border-right: none;
+        border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+      }
+
+      &:nth-child(2) {
+        border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+      }
+
+      &:nth-child(3) {
+        border-right: none;
+        border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+      }
+
+      &:nth-child(4) {
+        border-bottom: none;
+      }
+
+      .stat-number {
+        font-size: 2.75rem;
+      }
+
+      .stat-description {
+        max-width: 300px;
+      }
+    }
+
+    .achievement-badge {
+      padding: 2rem 1.5rem;
+
+      .badge-icon {
+        font-size: 2rem;
+      }
+
+      .badge-title {
+        font-size: 1.25rem;
+      }
+
+      .badge-text {
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
