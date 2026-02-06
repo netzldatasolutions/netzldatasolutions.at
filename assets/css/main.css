@@ -156,7 +156,7 @@ h6 {
 }
 
 .header .topbar {
-  background-color: var(--background-color);
+  background-color: var(--accent-color);
   height: 40px;
   padding: 0;
   font-size: 14px;
@@ -4909,4 +4909,9 @@ section,
   border-radius: 0 !important;
   box-shadow: none !important;
   background: transparent !important;
+}
+
+.contact-form {
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding-top: 1.5rem;
 }

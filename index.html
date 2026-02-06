@@ -63,18 +63,16 @@
 
   <header id="header" class="header sticky-top">
 
-    <div class="topbar d-flex align-items-center">
+    <div class="topbar d-flex align-items-center dark-background">
       <div class="container d-flex justify-content-center justify-content-md-between">
         <div class="contact-info d-flex align-items-center">
-          <i class="bi bi-telephone d-flex align-items-center">
-            <a href="tel:+4368181284922">+43 681 81284922</a>
-          </i>
-          <i class="bi bi-envelope d-flex align-items-center ms-4">
-            <a href="mailto:kontakt@netzldatasolutions.at">kontakt@netzldatasolutions.at</a>
-          </i>
+          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:kontakt@netzldatasolutions.at">kontakt@netzldatasolutions.at</a></i>
+        </div>
+        <div class="contact-info d-flex align-items-center">
+          <i class="bi bi-phone d-flex align-items-center ms-4"><a href="tel:+4368181284922">+43 681 81284922</a></i>
         </div>
       </div>
-    </div>
+    </div><!-- End Top Bar -->
 
     <div class="branding d-flex align-items-center">
       <div class="container position-relative d-flex align-items-center justify-content-between">
@@ -112,8 +110,8 @@
               <div class="content">
               <h1>Daten, die Sinn machen.</h1>
               <p>
-                Wir entwickeln verlässliche Datenpipelines, Automatisierungen, Reporting, und KI-gestützte Lösungen -
-                damit Abläufe stabil laufen, Informationen schnell verfügbar sind und Entscheidungen auf belastbaren Zahlen basieren.
+                Verlässliche Daten-, Automatisierungs-, und KI-Lösungen - <br>
+                für stabile Abläufe und klare Entscheidungen.
               </p>
 
                 <div class="cta-group">
@@ -180,7 +178,7 @@
                     <i class="bi bi-life-preserver"></i>
                   </div>
                   <h4>Betrieb &amp; Betreuung</h4>
-                  <p>Wir übergeben dokumentiert, schulen Ihr Team und begleiten Anpassungen bei Bedarf.</p>
+                  <p>Wir erklären die Lösung verständlich, schulen Ihr Team und begleiten Anpassungen bei Bedarf.</p>
                 </div>
               </div>
 
@@ -477,69 +475,91 @@
 
     </section><!-- /About Section -->
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
+  <!-- Contact Section -->
+  <section id="contact" class="contact section">
 
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Kontakt</h2>
-        <p>Schreiben Sie uns kurz, worum es geht - wir melden uns mit einem konkreten Vorschlag.</p>
-      </div>
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Kontakt</h2>
+      <p>Schreiben Sie uns kurz, worum es geht – wir melden uns mit einem konkreten Vorschlag.</p>
+    </div>
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
 
-            <div class="contact-sidebar">
-              <div class="contact-header">
-                <h3>Unverbindliches Erstgespräch</h3>
-                <p>Ein paar Stichworte reichen: Was kostet heute Zeit? Welche Prozesse sind besonders mühsam? Welche Fragen haben Sie an Ihre Daten?</p>
+          <div class="contact-sidebar">
+
+            <div class="contact-header">
+              <h3>Unverbindliches Erstgespräch</h3>
+              <p class="mb-3">
+                Am einfachsten: kurz schreiben. Alternativ erreichen Sie uns auch telefonisch oder per E-Mail.
+              </p>
+
+              <!-- kompakte Kontaktdaten (nicht als 3 gleichwertige Blöcke) -->
+              <div class="contact-meta mb-4">
+                <p class="mb-1">
+                  <strong>E-Mail:</strong>
+                  <a href="mailto:kontakt@netzldatasolutions.at">kontakt@netzldatasolutions.at</a>
+                  <span class="mx-2">·</span>
+                  <strong>Telefon:</strong>
+                  <a href="tel:+4368181284922">+43 681 812 849 22</a>
+                </p>
+                <p class="text-muted mb-0">
+                  Niederösterreich, Burgenland &amp; Wien · remote &amp; vor Ort nach Vereinbarung
+                </p>
               </div>
-
-              <div class="contact-methods">
-                <div class="contact-method">
-                  <div class="contact-icon">
-                    <i class="bi bi-envelope"></i>
-                  </div>
-                  <div class="contact-details">
-                    <span class="method-label">E-Mail</span>
-                    <p><a href="mailto:kontakt@netzldatasolutions.at">kontakt@netzldatasolutions.at</a></p>
-                  </div>
-                </div>
-
-                <div class="contact-method">
-                  <div class="contact-icon">
-                    <i class="bi bi-telephone"></i>
-                  </div>
-                  <div class="contact-details">
-                    <span class="method-label">Telefon</span>
-                    <p><a href="tel:+4368181284922">+43 681 81284922</a></p>
-                  </div>
-                </div>
-
-                <div class="contact-method">
-                  <div class="contact-icon">
-                    <i class="bi bi-geo-alt"></i>
-                  </div>
-                  <div class="contact-details">
-                    <span class="method-label">Region</span>
-                    <p>Niederösterreich, Burgenland &amp; Wien (remote &amp; vor Ort nach Vereinbarung)</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="mt-4">
-                <a class="btn btn-primary"
-                  href="mailto:kontakt@netzldatasolutions.at?subject=Anfrage%20Netzl%20Data%20Solutions">E-Mail schreiben</a>
-                <a class="btn btn-primary ms-2" href="tel:+4368181284922">Anrufen</a>
-              </div>
-
             </div>
 
+            <!-- Formular (Primäraktion) -->
+            <form
+              action="https://formspree.io/f/meelqjkr"
+              method="POST"
+              class="contact-form"
+            >
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Ihre E-Mail-Adresse</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-control"
+                  autocomplete="email"
+                  required
+                >
+              </div>
+
+              <div class="mb-3">
+                <label for="message" class="form-label">Nachricht</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  class="form-control"
+                  placeholder="Worum geht es? Ein paar Stichworte reichen."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-text mb-3">
+                Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben zur Beantwortung der Anfrage zu.
+              </div>
+
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <button type="submit" class="btn btn-primary">Anfrage senden</button>
+              </div>
+
+            </form>
+
           </div>
+
         </div>
       </div>
+    </div>
 
-    </section><!-- /Contact Section -->
+  </section>
+  <!-- /Contact Section -->
+
 
   </main>
 
@@ -553,8 +573,8 @@
             <span class="sitename">Netzl Data Solutions</span>
           </a>
           <div class="footer-contact pt-3">
-            <p class="mb-0"><a href="tel:+4368181284922">+43 681 81284922</a></p>
-            <p class="mb-0"><a href="mailto:kontakt@netzldatasolutions.at">kontakt@netzldatasolutions.at</a></p>
+            <p class="mb-0">kontakt@netzldatasolutions.at</p>
+            <p class="mb-0">+43 681 81284922</p>
             <p class="mb-0">2464 Göttlesbrunn, Österreich</p>
           </div>
         </div>
