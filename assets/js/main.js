@@ -107,9 +107,10 @@
   /**
    * Initiate glightbox
    */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
-  });
+  if (typeof GLightbox !== 'undefined') {
+    GLightbox({ selector: '.glightbox' });
+  }
+
 
   /**
    * Initiate Pure Counter
@@ -216,11 +217,19 @@
   });
 
   /**
-   * Frequently Asked Questions Toggle
+   * Frequently Asked Questions Toggle (accordion-like)
    */
-  document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle, .faq-item .faq-header').forEach((faqItem) => {
-    faqItem.addEventListener('click', () => {
-      faqItem.parentNode.classList.toggle('faq-active');
+  document.querySelectorAll('.faq-item .faq-header').forEach((header) => {
+    header.addEventListener('click', () => {
+      const item = header.closest('.faq-item');
+
+      // Alle anderen schließen
+      document.querySelectorAll('.faq-item.faq-active').forEach((openItem) => {
+        if (openItem !== item) openItem.classList.remove('faq-active');
+      });
+
+      // Aktuelles toggeln
+      item.classList.toggle('faq-active');
     });
   });
 
