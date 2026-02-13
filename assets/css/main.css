@@ -4960,7 +4960,7 @@ section,
 
 /* Hover */
 .btn-outline-primary:hover {
-  color: #fff;
+  color: #ffffff !important;
   background-color: var(--btn-color);
   border-color: var(--btn-color);
   transform: translateY(-1px);
