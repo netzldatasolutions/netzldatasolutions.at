@@ -53,7 +53,7 @@
       "addressLocality": "Göttlesbrunn",
       "addressCountry": "AT"
     },
-    "areaServed": ["Niederösterreich", "Wien", "Burgenland"]
+    "areaServed": ["Österreich"]
   }
   </script>
 
@@ -116,7 +116,10 @@
               </p>
 
                 <div class="cta-group">
-                  <a href="#contact" class="btn-primary">Unverbindliches Erstgespräch</a>
+                  <button type="button" class="btn-primary" data-bs-toggle="modal" data-bs-target="#quickBriefModal">
+                    Unverbindliches Erstgespräch
+                  </button>
+
                   <a href="#services" class="btn-secondary">
                     <i class="bi bi-list-check"></i>
                     <span>Leistungen ansehen</span>
@@ -339,8 +342,10 @@
                   <div class="service-icon"><i class="bi bi-arrow-repeat"></i></div>
                   <h3>Lösung</h3>
                   <p class="mb-0">
-                    Wir automatisieren Export, Zusammenführung und Datenlogik.
-                    Daraus entsteht eine stabile Datenbasis mit täglich aktualisierten Kennzahlen.
+                    Zunächst wird eine saubere Grundlage geschaffen:
+                    Daten werden strukturiert, Schnittstellen automatisiert
+                    und Abläufe klar definiert. Das benötigt Erfahrung, um eine
+                    tragfähige Architektur zu entwickeln, die langfristig funktioniert.
                   </p>
                 </div>
               </div>
@@ -373,7 +378,9 @@
         </div>
 
         <div class="text-center mt-4">
-          <a href="#contact" class="btn btn-primary">Kurz schildern, wo es hakt</a>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quickBriefModal">
+            Kurz schildern, wo es hakt
+          </button>
         </div>
 
       </div>
@@ -520,49 +527,76 @@
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row align-items-center">
-          <div class="col-lg-10 mx-auto" data-aos="fade-up" data-aos-delay="200">
+        <div class="row align-items-center g-4">
 
+          <!-- Profile image -->
+          <div class="col-lg-4" data-aos="fade-right" data-aos-delay="150">
+            <div class="about-profile text-center text-lg-start">
+              <img
+                src="assets/img/profile.webp"
+                alt="Daniel Netzl – Netzl Data Solutions"
+                class="img-fluid rounded-4 shadow-sm"
+                style="max-width: 320px; width: 100%; height: auto;"
+              />
+            </div>
+          </div>
+
+          <!-- Text content -->
+          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <div class="content">
-              <h2>Netzl Data Solutions</h2>
 
-              <p class="lead">
-                Wir entwickeln durchdachte Daten-, Automatisierungs- und KI-Lösungen,
-                die Prozesse vereinfachen und Entscheidungen auf eine verlässliche Basis stellen.
+              <h2 class="mb-2">Netzl Data Solutions</h2>
+
+              <p class="lead mb-3">
+                Datenlösungen und Automatisierung für kleine und mittelständische Betriebe –
+                fundiert, verständlich und auf die Praxis zugeschnitten.
               </p>
 
               <div class="description">
                 <p>
-                  Viele Unternehmen arbeiten mit gewachsenen Abläufen, manuellen Routinen
-                  und Daten, die zwar vorhanden sind, aber kaum genutzt werden.
-                  Genau hier setzen wir an.
+                  Netzl Data Solutions wurde gegründet, um modernen Datenzugang
+                  auch in der Region zugänglich zu machen.
+                  Denn professionelle Auswertungen, klare Strukturen und
+                  durchdachte Automatisierung sollen nicht nur großen Konzernen vorbehalten sein.
                 </p>
+
                 <p>
-                  Wir schaffen klare Datenstrukturen, automatisieren wiederkehrende Prozesse
-                  und entwickeln Lösungen, die stabil laufen, verständlich dokumentiert sind
-                  und langfristig genutzt werden können.
+                  Hinter dem Unternehmen steht Daniel Netzl,
+                  mit Ausbildung im Bereich Künstliche Intelligenz
+                  und Erfahrung aus der Industrie.
+                  Ziel ist es, dieses Know-how bewusst regional einzusetzen
+                  und Betriebe vor Ort langfristig zu stärken.
+                </p>
+
+                <p>
+                  Die Zusammenarbeit auf Augenhöhe liegt uns am Herzen.
+                  Viele Unternehmen arbeiten mit gewachsenen Abläufen und
+                  manuellen Routinen. Statt komplizierter Systeme entstehen
+                  Lösungen, die nachvollziehbar sind und im Alltag funktionieren.
+                </p>
+
+                <p>
+                  Technologie soll entlasten, Zeit schaffen
+                  und Entscheidungen klarer machen.
+                  Regional verbunden. Persönlich erreichbar. Langfristig gedacht.
                 </p>
               </div>
 
-
-
-              <div class="cta-section">
-                <a href="#contact" class="btn-link">Kontakt aufnehmen <i class="bi bi-arrow-right"></i></a>
+              <div class="cta-section mt-3">
+                <a href="#contact" class="btn-link">
+                  Kontakt aufnehmen <i class="bi bi-arrow-right"></i>
+                </a>
               </div>
+
             </div>
           </div>
 
-          <!-- <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
-            <div class="image-container">
-              <img src="assets/img/logo.svg" alt="Netzl Data Solutions"
-                class="img-fluid">
-            </div>
-          </div> -->
         </div>
-
       </div>
 
-    </section><!-- /About Section -->
+    </section>
+    <!-- /About Section -->
+
 
   <!-- Contact Section -->
   <section id="contact" class="contact section">
@@ -591,7 +625,7 @@
                   <a href="tel:+4368181284922">+43 681 812 849 22</a>
                 </p>
                 <p class="text-muted mb-0">
-                  Niederösterreich, Burgenland &amp; Wien · remote &amp; vor Ort nach Vereinbarung
+                  Remote &amp; vor Ort nach Vereinbarung
                 </p>
               </div>
             </div>
@@ -630,7 +664,6 @@
               <div class="form-text mb-3">
                 Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben zur Beantwortung der Anfrage zu.
               </div>
-
               <div class="d-flex flex-wrap align-items-center gap-2">
                 <button type="submit" class="btn btn-primary">Anfrage senden</button>
                 <a href="tel:+4368181284922" class="btn btn-outline-primary">
@@ -752,7 +785,7 @@
           <div class="faq-content">
             <div class="content-inner">
               <p>
-                Beides. Vieles funktioniert remote. Vor Ort nach Bedarf (Niederösterreich, Wien, Burgenland).
+                Beides. Vieles funktioniert remote, vor Ort nach Bedarf.
               </p>
             </div>
           </div>
@@ -810,6 +843,98 @@
 
   </footer>
 
+  <!-- Quick Brief Modal -->
+  <div class="modal fade" id="quickBriefModal" tabindex="-1" aria-labelledby="quickBriefModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="quickBriefModalLabel">Kurze Schilderung in 3 Schritten</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+        </div>
+
+        <div class="modal-body">
+          <form id="quickBriefForm" novalidate>
+
+            <!-- Step indicator -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <small class="text-muted" id="qbStepLabel">Schritt 1 von 3</small>
+              <small class="text-muted" id="qbProgressLabel">E-Mail</small>
+            </div>
+
+            <!-- STEP 1: Email -->
+            <div class="qb-step" data-step="1">
+              <label for="qbEmail" class="form-label">Ihre E-Mail-Adresse</label>
+              <input type="email" class="form-control" id="qbEmail" placeholder="name@firma.at" required>
+              <div class="form-text">Damit eine Rückmeldung möglich ist.</div>
+            </div>
+
+            <!-- STEP 2: What kind of business / context -->
+            <div class="qb-step d-none" data-step="2">
+              <label class="form-label">Worum geht es am ehesten?</label>
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-outline-primary qb-choice" data-field="topic" data-value="Überblick & Kennzahlen (Reporting/Dashboard)">
+                  Überblick & Kennzahlen (Reporting/Dashboard)
+                </button>
+                <button type="button" class="btn btn-outline-primary qb-choice" data-field="topic" data-value="Excel/Listen automatisieren (wiederkehrende Arbeit)">
+                  Excel/Listen automatisieren (wiederkehrende Arbeit)
+                </button>
+                <button type="button" class="btn btn-outline-primary qb-choice" data-field="topic" data-value="Daten zusammenführen (mehrere Quellen)">
+                  Daten zusammenführen (mehrere Quellen)
+                </button>
+                <button type="button" class="btn btn-outline-primary qb-choice" data-field="topic" data-value="KI-Anwendungen">
+                  Anfrage zu KI-Anwendungen
+                </button>
+                <button type="button" class="btn btn-outline-primary qb-choice" data-field="topic" data-value="Sonstiges (kurz unten ergänzen)">
+                  Sonstiges (kurz unten ergänzen)
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP 3: Data sources -->
+            <div class="qb-step d-none" data-step="3">
+              <label class="form-label">Wo liegen die Daten aktuell?</label>
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-outline-primary qb-choice" data-field="sources" data-value="Excel / CSV Dateien">
+                  Excel / CSV Dateien
+                </button>
+                <button type="button" class="btn btn-outline-primary qb-choice" data-field="sources" data-value="CRM / ERP System">
+                  CRM / ERP System
+                </button>
+                <button type="button" class="btn btn-outline-primary qb-choice" data-field="sources" data-value="Datenbank">
+                  Datenbank(en)
+                </button>
+                <button type="button" class="btn btn-outline-primary qb-choice" data-field="sources" data-value="Mehrere Systeme / gemischt">
+                  Mehrere Systeme / gemischt
+                </button>
+                <button type="button" class="btn btn-outline-primary qb-choice" data-field="sources" data-value="Noch unklar">
+                  Noch unklar
+                </button>
+              </div>
+
+              <div class="mt-3">
+                <label for="qbMessage" class="form-label">Optional: kurze Ergänzung</label>
+                <textarea class="form-control" id="qbMessage" rows="3" placeholder="1–2 Sätze reichen."></textarea>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-outline-secondary" id="qbBackBtn" disabled>Zurück</button>
+
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-primary" id="qbNextBtn">Weiter</button>
+            <button type="button" class="btn btn-success d-none" id="qbSendBtn">Senden</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
@@ -824,6 +949,191 @@
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+  (() => {
+    const form = document.getElementById('quickBriefForm');
+    const steps = [...document.querySelectorAll('.qb-step')];
+    const stepLabel = document.getElementById('qbStepLabel');
+    const progressLabel = document.getElementById('qbProgressLabel');
+
+    const backBtn = document.getElementById('qbBackBtn');
+    const nextBtn = document.getElementById('qbNextBtn');
+    const sendBtn = document.getElementById('qbSendBtn');
+
+    const emailInput = document.getElementById('qbEmail');
+    const msgInput = document.getElementById('qbMessage');
+
+    // Collected answers
+    const state = {
+      email: "",
+      topic: "",
+      sources: "",
+      message: ""
+    };
+
+    let current = 1;
+
+    function showStep(n) {
+      current = n;
+      steps.forEach(s => s.classList.toggle('d-none', Number(s.dataset.step) !== n));
+
+      backBtn.disabled = (n === 1);
+
+      // Button states
+      const isLast = (n === 3);
+      nextBtn.classList.toggle('d-none', isLast);
+      sendBtn.classList.toggle('d-none', !isLast);
+
+      // Labels
+      stepLabel.textContent = `Schritt ${n} von 3`;
+      progressLabel.textContent = (n === 1) ? "E-Mail" : (n === 2) ? "Thema" : "Daten";
+    }
+
+    function validateStep1() {
+      const email = emailInput.value.trim();
+      // very light validation; browser does more due to type="email"
+      if (!email || !email.includes('@')) return false;
+      state.email = email;
+      return true;
+    }
+
+    function buildEmailBody() {
+      state.message = (msgInput?.value || "").trim();
+
+      const lines = [
+        "Kurzbrief von der Website",
+        "",
+        `E-Mail: ${state.email}`,
+        `Thema: ${state.topic || "-"}`,
+        `Daten: ${state.sources || "-"}`,
+        "",
+        "Ergänzung:",
+        state.message || "-"
+      ];
+      return lines.join("\n");
+    }
+
+    // Choice buttons (step 2 & 3)
+    document.querySelectorAll('.qb-choice').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const field = btn.dataset.field;
+        const value = btn.dataset.value;
+
+        state[field] = value;
+
+        // Visual "selected" state within the current step
+        const container = btn.closest('.qb-step');
+        container.querySelectorAll('.qb-choice').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Auto-advance after selection
+        if (current === 2) showStep(3);
+      });
+    });
+
+    backBtn.addEventListener('click', () => {
+      if (current > 1) showStep(current - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (current === 1) {
+        if (!validateStep1()) {
+          emailInput.focus();
+          emailInput.classList.add('is-invalid');
+          return;
+        }
+        emailInput.classList.remove('is-invalid');
+        showStep(2);
+        return;
+      }
+      if (current === 2) {
+        showStep(3);
+        return;
+      }
+    });
+
+    sendBtn.addEventListener('click', async () => {
+      // Ensure step 1 is valid (user could jump around)
+      if (!validateStep1()) {
+        showStep(1);
+        emailInput.focus();
+        return;
+      }
+
+      // Ensure choices exist
+      if (!state.topic) {
+        showStep(2);
+        return;
+      }
+      if (!state.sources) {
+        showStep(3);
+        return;
+      }
+
+      const subject = "Website: Kurze Schilderung (Netzl Data Solutions)";
+      const body = buildEmailBody();
+
+      // OPTION A (no backend): mailto (opens user's mail client)
+      // const to = "kontakt@netzldatasolutions.at";
+      // const mailtoUrl =
+      //   `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      // window.location.href = mailtoUrl;
+
+      // OPTION B (recommended): send via your backend endpoint
+      // Uncomment and implement an endpoint that sends mail server-side.
+      const endpoint = "https://nds-quick-brief.daniel-1b2.workers.dev";
+
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            email: state.email,
+            topic: state.topic,
+            sources: state.sources,
+            message: state.message,
+            website: "" // honeypot field (keep empty)
+          })
+        });
+
+        if (!res.ok) {
+          const t = await res.text();
+          console.error("Worker error:", res.status, t);
+          throw new Error(t);
+        }
+
+
+        const modalEl = document.getElementById('quickBriefModal');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        modal?.hide();
+        alert("Danke! Nachricht wurde gesendet.");
+      } catch (e) {
+        console.error(e);
+        alert("Senden nicht möglich. Bitte per E-Mail melden: kontakt@netzldatasolutions.at");
+      }     
+    });
+
+    // Reset when modal closes
+    const modalEl = document.getElementById('quickBriefModal');
+    modalEl.addEventListener('hidden.bs.modal', () => {
+      // reset state
+      state.email = "";
+      state.topic = "";
+      state.sources = "";
+      state.message = "";
+      form.reset();
+
+      document.querySelectorAll('.qb-choice').forEach(b => b.classList.remove('active'));
+      emailInput.classList.remove('is-invalid');
+      showStep(1);
+    });
+
+    // init
+    showStep(1);
+  })();
+  </script>
+
   <script src="assets/vendor/aos/aos.js" defer></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js" defer></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>

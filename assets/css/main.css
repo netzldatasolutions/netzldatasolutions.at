@@ -4991,3 +4991,36 @@ section,
   opacity: 0.5;
   pointer-events: none;
 }
+
+/* Base style */
+.qb-choice {
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.qb-choice:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* When actively clicked */
+button.qb-choice:active,
+button.qb-choice:focus {
+  background-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+
+/* When selected */
+.qb-choice.active {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: #fff;
+}
+
+/* Prevent Bootstrap focus ring */
+.qb-choice:focus-visible {
+  box-shadow: none;
+}
