@@ -23,7 +23,7 @@
 :root { 
   --background-color: #ffffff;      /* Background */
   --default-color: #47484B;         /* Logo-Grau für Fließtext */
-  --heading-color: #1f2d1f;         /* sehr dunkles Grün (Headlines) */
+  --heading-color: #47484B;         /* sehr dunkles Grün (Headlines) */
 
   --accent-color: #70B646;          /* Logo-Hauptgrün */
   --accent-color-dark: #4F973A;     /* Logo-Dunkelgrün (Hover/Tiefe) */
@@ -5023,4 +5023,36 @@ button.qb-choice:focus {
 /* Prevent Bootstrap focus ring */
 .qb-choice:focus-visible {
   box-shadow: none;
+}
+
+/* Mobile first */
+.hero .content { text-align: center; }
+.hero .cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Buttons auf Mobile gleich breit */
+.hero .cta-group .btn-primary,
+.hero .cta-group .btn-secondary {
+  width: 100%;
+  max-width: 360px; /* optional */
+  justify-content: center;
+}
+
+/* Desktop wieder wie gehabt */
+@media (min-width: 992px) {
+  .hero .content { text-align: left; }
+  .hero .cta-group {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .hero .cta-group .btn-primary,
+  .hero .cta-group .btn-secondary {
+    width: auto;
+    max-width: none;
+  }
 }
