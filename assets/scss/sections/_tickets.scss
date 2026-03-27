@@ -6,13 +6,7 @@
   position: relative;
 
   .ticket-solutions-panel {
-    background:
-      radial-gradient(circle at top right, color-mix(in srgb, var(--accent-color), transparent 82%), transparent 42%),
-      linear-gradient(135deg, color-mix(in srgb, var(--surface-color), var(--accent-color) 3%), var(--surface-color));
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
-    border-radius: 28px;
-    padding: 48px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06);
+    padding: 0;
   }
 
   .ticket-kicker {
@@ -67,9 +61,8 @@
     align-items: flex-start;
     gap: 14px;
     padding: 18px 20px;
-    border-radius: 18px;
-    background: color-mix(in srgb, var(--background-color), var(--surface-color) 55%);
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    border-radius: 8px;
+    background: var(--surface-color);
 
     i {
       color: var(--accent-color);
@@ -86,12 +79,10 @@
 
   .ticket-cta-card {
     height: 100%;
-    padding: 32px;
-    border-radius: 24px;
-    background: linear-gradient(180deg, color-mix(in srgb, var(--surface-color), var(--accent-color) 6%), var(--surface-color));
+    padding: 40px 32px;
+    border-radius: 8px;
+    background: var(--surface-color);
     color: var(--default-color);
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -105,16 +96,16 @@
   .ticket-cta-icon {
     width: 72px;
     height: 72px;
-    border-radius: 20px;
+    border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 24px;
-    background: color-mix(in srgb, var(--accent-color), transparent 86%);
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-color-dark));
 
     i {
       font-size: 34px;
-      color: var(--accent-color);
+      color: var(--contrast-color);
     }
   }
 
@@ -145,7 +136,7 @@
   .ticket-secondary-link {
     margin-top: 14px;
     padding: 14px 22px;
-    border: 1px solid color-mix(in srgb, var(--default-color), transparent 82%);
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 84%);
     color: var(--heading-color);
     background: transparent;
   }
@@ -156,10 +147,6 @@
   }
 
   @media (max-width: 991px) {
-    .ticket-solutions-panel {
-      padding: 36px 28px;
-    }
-
     .ticket-copy h3,
     .ticket-cta-card h3 {
       font-size: 28px;
@@ -167,11 +154,6 @@
   }
 
   @media (max-width: 767px) {
-    .ticket-solutions-panel {
-      border-radius: 22px;
-      padding: 28px 20px;
-    }
-
     .ticket-copy h3,
     .ticket-cta-card h3 {
       font-size: 24px;
