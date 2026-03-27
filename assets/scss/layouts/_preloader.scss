@@ -25,22 +25,22 @@
     left: 50%;
 
     &:nth-child(1) {
-      left: calc(50% + 8px);
+      left: calc(50% - 24px);
       animation: animate-preloader-1 0.6s infinite;
     }
 
     &:nth-child(2) {
-      left: calc(50% + 8px);
+      left: calc(50% - 24px);
       animation: animate-preloader-2 0.6s infinite;
     }
 
     &:nth-child(3) {
-      left: calc(50% + 32px);
+      left: 50%;
       animation: animate-preloader-2 0.6s infinite;
     }
 
     &:nth-child(4) {
-      left: calc(50% + 56px);
+      left: calc(50% + 24px);
       animation: animate-preloader-3 0.6s infinite;
     }
   }

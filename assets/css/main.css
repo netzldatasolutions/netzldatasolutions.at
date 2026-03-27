@@ -656,22 +656,22 @@ h6 {
 }
 
 #preloader div:nth-child(1) {
-  left: calc(50% + 8px);
+  left: calc(50% - 24px);
   animation: animate-preloader-1 0.6s infinite;
 }
 
 #preloader div:nth-child(2) {
-  left: calc(50% + 8px);
+  left: calc(50% - 24px);
   animation: animate-preloader-2 0.6s infinite;
 }
 
 #preloader div:nth-child(3) {
-  left: calc(50% + 32px);
+  left: 50%;
   animation: animate-preloader-2 0.6s infinite;
 }
 
 #preloader div:nth-child(4) {
-  left: calc(50% + 56px);
+  left: calc(50% + 24px);
   animation: animate-preloader-3 0.6s infinite;
 }
 
@@ -2016,6 +2016,193 @@ section,
   .services p {
     font-size: 15px;
     margin-bottom: 32px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Ticket Solutions Section
+--------------------------------------------------------------*/
+.ticket-solutions {
+  position: relative;
+}
+
+.ticket-solutions .ticket-solutions-panel {
+  background: radial-gradient(circle at top right, color-mix(in srgb, var(--accent-color), transparent 82%), transparent 42%), linear-gradient(135deg, color-mix(in srgb, var(--surface-color), var(--accent-color) 3%), var(--surface-color));
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  border-radius: 28px;
+  padding: 48px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06);
+}
+
+.ticket-solutions .ticket-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-color), transparent 88%);
+  color: var(--accent-color);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ticket-solutions .ticket-copy h3,
+.ticket-solutions .ticket-cta-card h3 {
+  font-size: 32px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.ticket-solutions .ticket-copy p,
+.ticket-solutions .ticket-cta-card p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--default-color), transparent 16%);
+  margin-bottom: 18px;
+}
+
+.ticket-solutions .ticket-copy p a {
+  color: var(--accent-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ticket-solutions .ticket-copy p a:hover {
+  text-decoration: underline;
+}
+
+.ticket-solutions .ticket-points {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.ticket-solutions .ticket-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--background-color), var(--surface-color) 55%);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+
+.ticket-solutions .ticket-point i {
+  color: var(--accent-color);
+  font-size: 20px;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.ticket-solutions .ticket-point span {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.ticket-solutions .ticket-cta-card {
+  height: 100%;
+  padding: 32px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface-color), var(--accent-color) 6%), var(--surface-color));
+  color: var(--default-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ticket-solutions .ticket-cta-card h3,
+.ticket-solutions .ticket-cta-card p {
+  color: var(--default-color);
+}
+
+.ticket-solutions .ticket-cta-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  background: color-mix(in srgb, var(--accent-color), transparent 86%);
+}
+
+.ticket-solutions .ticket-cta-icon i {
+  font-size: 34px;
+  color: var(--accent-color);
+}
+
+.ticket-solutions .ticket-cta-link,
+.ticket-solutions .ticket-secondary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.ticket-solutions .ticket-cta-link {
+  padding: 16px 24px;
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  margin-top: 10px;
+}
+
+.ticket-solutions .ticket-cta-link:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--accent-color), white 10%);
+}
+
+.ticket-solutions .ticket-secondary-link {
+  margin-top: 14px;
+  padding: 14px 22px;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 82%);
+  color: var(--heading-color);
+  background: transparent;
+}
+
+.ticket-solutions .ticket-secondary-link:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--accent-color), transparent 92%);
+}
+
+@media (max-width: 991px) {
+  .ticket-solutions .ticket-solutions-panel {
+    padding: 36px 28px;
+  }
+
+  .ticket-solutions .ticket-copy h3,
+  .ticket-solutions .ticket-cta-card h3 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ticket-solutions .ticket-solutions-panel {
+    border-radius: 22px;
+    padding: 28px 20px;
+  }
+
+  .ticket-solutions .ticket-copy h3,
+  .ticket-solutions .ticket-cta-card h3 {
+    font-size: 24px;
+  }
+
+  .ticket-solutions .ticket-cta-card {
+    padding: 24px 20px;
+  }
+
+  .ticket-solutions .ticket-cta-link,
+  .ticket-solutions .ticket-secondary-link {
+    width: 100%;
   }
 }
 
