@@ -1,0 +1,171 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Ticket Solutions Section
+--------------------------------------------------------------*/
+.ticket-solutions {
+  position: relative;
+
+  .ticket-solutions-panel {
+    padding: 0;
+  }
+
+  .ticket-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent-color), transparent 88%);
+    color: var(--accent-color);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .ticket-copy h3,
+  .ticket-cta-card h3 {
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .ticket-copy p,
+  .ticket-cta-card p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: color-mix(in srgb, var(--default-color), transparent 16%);
+    margin-bottom: 18px;
+  }
+
+  .ticket-copy p a {
+    color: var(--accent-color);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .ticket-copy p a:hover {
+    text-decoration: underline;
+  }
+
+  .ticket-points {
+    display: grid;
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .ticket-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    border-radius: 8px;
+    background: var(--surface-color);
+
+    i {
+      color: var(--accent-color);
+      font-size: 20px;
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    span {
+      font-size: 15px;
+      line-height: 1.65;
+    }
+  }
+
+  .ticket-cta-card {
+    height: 100%;
+    padding: 40px 32px;
+    border-radius: 8px;
+    background: var(--surface-color);
+    color: var(--default-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ticket-cta-card h3,
+  .ticket-cta-card p {
+    color: var(--default-color);
+  }
+
+  .ticket-cta-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-color-dark));
+
+    i {
+      font-size: 34px;
+      color: var(--contrast-color);
+    }
+  }
+
+  .ticket-cta-link,
+  .ticket-secondary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 700;
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  }
+
+  .ticket-cta-link {
+    padding: 16px 24px;
+    background: var(--accent-color);
+    color: var(--contrast-color);
+    margin-top: 10px;
+  }
+
+  .ticket-cta-link:hover {
+    transform: translateY(-2px);
+    background: color-mix(in srgb, var(--accent-color), white 10%);
+  }
+
+  .ticket-secondary-link {
+    margin-top: 14px;
+    padding: 14px 22px;
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 84%);
+    color: var(--heading-color);
+    background: transparent;
+  }
+
+  .ticket-secondary-link:hover {
+    transform: translateY(-2px);
+    background: color-mix(in srgb, var(--accent-color), transparent 92%);
+  }
+
+  @media (max-width: 991px) {
+    .ticket-copy h3,
+    .ticket-cta-card h3 {
+      font-size: 28px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .ticket-copy h3,
+    .ticket-cta-card h3 {
+      font-size: 24px;
+    }
+
+    .ticket-cta-card {
+      padding: 24px 20px;
+    }
+
+    .ticket-cta-link,
+    .ticket-secondary-link {
+      width: 100%;
+    }
+  }
+}
