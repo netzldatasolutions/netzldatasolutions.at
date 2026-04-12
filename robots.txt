@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /secret-download/
 
 Sitemap: https://www.netzldatasolutions.at/sitemap.xml

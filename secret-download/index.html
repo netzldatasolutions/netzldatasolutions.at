@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geheimer Download</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="refresh" content="1; url=../assets/Slidedeck.pptx">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Inter, Roboto, system-ui, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      text-align: center;
+      padding: 24px;
+    }
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+    }
+    a:hover {
+      color: #7dd3fc;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h1>Verbindung hergestellt</h1>
+    <p>Ihr Download startet gleich.<br>Falls nicht, <a href="../assets/Slidedeck.pptx" download>hier klicken</a>.</p>
+  </div>
+
+  <script>
+    window.addEventListener('load', function() {
+      window.location.href = '../assets/Slidedeck.pptx';
+    });
+  </script>
+</body>
+
+</html>
