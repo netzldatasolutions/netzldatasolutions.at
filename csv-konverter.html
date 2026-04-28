@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>CSV-Konverter | Netzl Data Solutions</title>
+  <meta name="description"
+    content="CSV-Dateien sicher von Komma- auf Semikolon-Trennzeichen umstellen, ohne Textfelder mit eingebetteten Kommas zu zerstören.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link href="assets/img/favicon.svg" rel="icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .converter-card {
+      border: 1px solid rgba(71, 72, 75, 0.08);
+      border-radius: 1rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      background: #f7fbfa;
+      color: #55606d;
+    }
+
+    .status-pill.is-ready {
+      background: rgba(112, 182, 70, 0.12);
+      color: #417f31;
+    }
+
+    .status-pill.is-error {
+      background: rgba(220, 53, 69, 0.12);
+      color: #b42333;
+    }
+
+    .drop-zone {
+      position: relative;
+      display: block;
+      border: 1px dashed rgba(71, 72, 75, 0.28);
+      border-radius: 1rem;
+      background: #fafcfc;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .drop-zone:hover,
+    .drop-zone:focus-within {
+      border-color: var(--accent-color);
+      background: #f7fbfa;
+    }
+
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .drop-zone-content {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .drop-zone-icon {
+      font-size: 1.8rem;
+      color: var(--accent-color);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .summary-grid li {
+      padding: 0.85rem 1rem;
+      border-radius: 0.85rem;
+      background: #f7fbfa;
+      border: 1px solid rgba(71, 72, 75, 0.08);
+    }
+
+    .summary-label {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: #6f7883;
+      font-size: 0.82rem;
+    }
+
+    .summary-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2f353b;
+    }
+
+    .preview-box {
+      min-height: 14rem;
+      padding: 1rem;
+      border: 1px solid rgba(71, 72, 75, 0.08);
+      border-radius: 0.85rem;
+      background: #f7fbfa;
+      overflow: auto;
+    }
+
+    .preview-box pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 0.92rem;
+      color: #344050;
+    }
+  </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header sticky-top">
+    <div class="branding d-flex align-items-center">
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+
+        <a href="/" class="logo d-flex align-items-center">
+          <img src="assets/img/logo.svg" alt="Netzl Data Solutions Logo">
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="/#start">Start</a></li>
+            <li><a href="/#services">Leistungen</a></li>
+            <li><a href="/#process">Ablauf</a></li>
+            <li><a href="/#about">Über uns</a></li>
+            <li><a href="/#contact">Kontakt</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section class="section">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+
+            <div class="section-title text-start mb-4">
+              <h2>CSV-Konverter</h2>
+              <p>Komma-getrennte CSV-Dateien sicher in Semikolon-CSV umwandeln.</p>
+            </div>
+
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+              <div class="card-body p-4 p-md-5">
+                <p class="mb-3">
+                  Die Datei wird direkt im Browser verarbeitet. Eingebettete Kommas in korrekt quotierten Feldern
+                  bleiben erhalten.
+                </p>
+                <p class="mb-0 text-muted">
+                  Falls einzelne Zeilen in der Quelldatei unvollständig sind, kann das Tool fehlende leere Endspalten
+                  automatisch ergänzen und zeigt dafür eine Warnung an.
+                </p>
+              </div>
+            </div>
+
+            <div class="row g-4">
+              <div class="col-lg-6">
+                <div class="card shadow-sm border-0 converter-card h-100">
+                  <div class="card-body p-4">
+                    <h4 class="mb-3">Datei auswählen</h4>
+
+                    <div id="runtime-status" class="status-pill mb-4">
+                      <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                      <span id="runtime-status-text">Wird vorbereitet...</span>
+                    </div>
+
+                    <label class="drop-zone mb-4" for="csv-file">
+                      <input id="csv-file" type="file" accept=".csv,text/csv">
+                      <div class="drop-zone-content">
+                        <div class="drop-zone-icon mb-3"><i class="bi bi-file-earmark-spreadsheet"></i></div>
+                        <p class="fw-semibold mb-1">CSV-Datei auswählen</p>
+                        <p id="selected-file-name" class="mb-0 text-muted">Noch keine Datei ausgewählt</p>
+                      </div>
+                    </label>
+
+                    <div class="form-check mb-4">
+                      <input class="form-check-input" type="checkbox" value="" id="pad-short-rows" checked>
+                      <label class="form-check-label" for="pad-short-rows">
+                        Fehlende leere Endspalten automatisch ergänzen
+                      </label>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                      <button id="convert-button" class="btn btn-success" type="button" disabled>
+                        Umwandeln
+                      </button>
+                      <a id="download-button" class="btn btn-outline-success d-none" download>
+                        Herunterladen
+                      </a>
+                    </div>
+
+                    <div id="message-box" class="alert d-none mb-0" role="alert"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="card shadow-sm border-0 converter-card h-100">
+                  <div class="card-body p-4">
+                    <h4 class="mb-3">Ergebnis</h4>
+
+                    <ul class="summary-grid mb-4">
+                      <li>
+                        <span class="summary-label">Zeilen</span>
+                        <span id="summary-rows" class="summary-value">-</span>
+                      </li>
+                      <li>
+                        <span class="summary-label">Spalten</span>
+                        <span id="summary-columns" class="summary-value">-</span>
+                      </li>
+                      <li>
+                        <span class="summary-label">Warnungen</span>
+                        <span id="summary-warnings" class="summary-value">-</span>
+                      </li>
+                      <li>
+                        <span class="summary-label">Ausgabe</span>
+                        <span id="summary-format" class="summary-value">Semikolon-CSV</span>
+                      </li>
+                    </ul>
+
+                    <div id="warnings-box" class="alert alert-warning d-none" role="alert"></div>
+
+                    <h5 class="mb-3">Vorschau</h5>
+                    <div class="preview-box">
+                      <pre id="preview-output">Nach der Umwandlung erscheint hier eine Kurzvorschau der ersten Zeilen.</pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+
+        <div class="col-lg-5 col-md-6 footer-about">
+          <a href="/" class="d-flex align-items-center">
+            <span class="sitename">Netzl Data Solutions</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p class="mb-0">kontakt@netzldatasolutions.at</p>
+            <p class="mb-0">+43 681 81284922</p>
+            <p class="mb-0">2464 Göttlesbrunn, Österreich</p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><i class="bi bi-chevron-right"></i> <a href="/#start">Start</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="/#services">Leistungen</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="/#process">Ablauf</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="/#about">Über uns</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="/#contact">Kontakt</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Rechtliches</h4>
+          <ul>
+            <li><i class="bi bi-chevron-right"></i> <a href="impressum.html">Impressum</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="datenschutz.html">Datenschutz</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Netzl Data Solutions</strong> <span>All Rights Reserved</span></p>
+    </div>
+
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.29.3/full/pyodide.js"></script>
+  <script src="assets/js/csv-converter.js"></script>
+
+</body>
+
+</html>
