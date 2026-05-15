@@ -12,6 +12,7 @@
   const preview = document.getElementById("qr-preview");
   const message = document.getElementById("qr-message");
   const summary = document.getElementById("qr-summary");
+  const filenameInput = document.getElementById("qr-filename");
   const downloadPngButton = document.getElementById("download-png");
   const downloadJpgButton = document.getElementById("download-jpg");
   const downloadSvgButton = document.getElementById("download-svg");
@@ -160,7 +161,15 @@
   }
 
   function filename(extension) {
-    return `qr-code.${extension}`;
+    const baseName = String(filenameInput.value || "")
+      .trim()
+      .replace(/\.[a-z0-9]{2,5}$/iu, "")
+      .replace(/[<>:"/\\|?*\u0000-\u001f]+/gu, "-")
+      .replace(/\s+/gu, "-")
+      .replace(/-+/gu, "-")
+      .replace(/^-|-$/gu, "");
+
+    return `${baseName || "qr-code"}.${extension}`;
   }
 
   function downloadUrl(url, name) {
