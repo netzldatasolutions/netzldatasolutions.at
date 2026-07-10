@@ -9,6 +9,7 @@
   const foregroundTextInput = document.getElementById("qr-foreground-text");
   const backgroundInput = document.getElementById("qr-background");
   const backgroundTextInput = document.getElementById("qr-background-text");
+  const transparentBackgroundInput = document.getElementById("qr-transparent-background");
   const preview = document.getElementById("qr-preview");
   const message = document.getElementById("qr-message");
   const summary = document.getElementById("qr-summary");
@@ -56,7 +57,7 @@
     scheduleRender();
   }
 
-  function createCanvas(qr, size, margin, darkColor, lightColor) {
+  function createCanvas(qr, size, margin, darkColor, lightColor, transparentBackground) {
     const moduleCount = qr.getModuleCount();
     const totalModules = moduleCount + margin * 2;
     const scale = Math.floor(size / totalModules);
@@ -66,8 +67,10 @@
 
     canvas.width = canvasSize;
     canvas.height = canvasSize;
-    ctx.fillStyle = lightColor;
-    ctx.fillRect(0, 0, canvasSize, canvasSize);
+    if (!transparentBackground) {
+      ctx.fillStyle = lightColor;
+      ctx.fillRect(0, 0, canvasSize, canvasSize);
+    }
     ctx.fillStyle = darkColor;
 
     for (let row = 0; row < moduleCount; row += 1) {
@@ -81,13 +84,16 @@
     return canvas;
   }
 
-  function createSvg(qr, size, margin, darkColor, lightColor) {
+  function createSvg(qr, size, margin, darkColor, lightColor, transparentBackground) {
     const moduleCount = qr.getModuleCount();
     const totalModules = moduleCount + margin * 2;
     const parts = [
-      `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${totalModules} ${totalModules}" shape-rendering="crispEdges">`,
-      `<rect width="100%" height="100%" fill="${lightColor}"/>`
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${totalModules} ${totalModules}" shape-rendering="crispEdges">`
     ];
+
+    if (!transparentBackground) {
+      parts.push(`<rect width="100%" height="100%" fill="${lightColor}"/>`);
+    }
 
     for (let row = 0; row < moduleCount; row += 1) {
       for (let col = 0; col < moduleCount; col += 1) {
@@ -107,11 +113,19 @@
     const margin = Number(marginInput.value);
     const foreground = normalizeHex(foregroundTextInput.value, "#1f2933");
     const background = normalizeHex(backgroundTextInput.value, "#ffffff");
+    const transparentBackground = Boolean(transparentBackgroundInput && transparentBackgroundInput.checked);
 
     foregroundInput.value = foreground;
     foregroundTextInput.value = foreground;
     backgroundInput.value = background;
     backgroundTextInput.value = background;
+
+    if (backgroundInput) {
+      backgroundInput.disabled = transparentBackground;
+    }
+    if (backgroundTextInput) {
+      backgroundTextInput.disabled = transparentBackground;
+    }
 
     if (!value) {
       currentQr = undefined;
@@ -138,10 +152,10 @@
       qr.make();
 
       currentQr = qr;
-      currentCanvas = createCanvas(qr, size, margin, foreground, background);
-      currentSvg = createSvg(qr, size, margin, foreground, background);
+      currentCanvas = createCanvas(qr, size, margin, foreground, background, transparentBackground);
+      currentSvg = createSvg(qr, size, margin, foreground, background, transparentBackground);
       preview.replaceChildren(currentCanvas);
-      summary.textContent = `${qr.getModuleCount()} x ${qr.getModuleCount()} Module · ${size} px`;
+      summary.textContent = `${qr.getModuleCount()} x ${qr.getModuleCount()} Module · ${size} px${transparentBackground ? " · Transparenter Hintergrund" : ""}`;
       setDownloadsEnabled(true);
       setMessage("", "warning");
     } catch (error) {
@@ -189,12 +203,18 @@
 
   function downloadImage(type, extension) {
     if (!currentCanvas) return;
+    const transparentBackground = Boolean(transparentBackgroundInput && transparentBackgroundInput.checked);
+
+    if (type === "image/png" && transparentBackground) {
+      downloadUrl(currentCanvas.toDataURL(type), filename(extension));
+      return;
+    }
 
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     canvas.width = currentCanvas.width;
     canvas.height = currentCanvas.height;
-    ctx.fillStyle = backgroundInput.value;
+    ctx.fillStyle = transparentBackground ? "#ffffff" : backgroundInput.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(currentCanvas, 0, 0);
     downloadUrl(canvas.toDataURL(type, 0.95), filename(extension));
@@ -216,7 +236,21 @@
     const pageWidth = pdf.internal.pageSize.getWidth();
     const imageSize = 140;
     const x = (pageWidth - imageSize) / 2;
-    pdf.addImage(currentCanvas.toDataURL("image/png"), "PNG", x, 28, imageSize, imageSize);
+    const transparentBackground = Boolean(transparentBackgroundInput && transparentBackgroundInput.checked);
+    let sourceCanvas = currentCanvas;
+
+    if (transparentBackground) {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = currentCanvas.width;
+      canvas.height = currentCanvas.height;
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(currentCanvas, 0, 0);
+      sourceCanvas = canvas;
+    }
+
+    pdf.addImage(sourceCanvas.toDataURL("image/png"), "PNG", x, 28, imageSize, imageSize);
     pdf.save(filename("pdf"));
   }
 
@@ -229,6 +263,9 @@
   foregroundTextInput.addEventListener("input", () => syncColor(foregroundTextInput, foregroundInput, foregroundTextInput));
   backgroundInput.addEventListener("input", () => syncColor(backgroundInput, backgroundInput, backgroundTextInput));
   backgroundTextInput.addEventListener("input", () => syncColor(backgroundTextInput, backgroundInput, backgroundTextInput));
+  if (transparentBackgroundInput) {
+    transparentBackgroundInput.addEventListener("change", scheduleRender);
+  }
 
   downloadPngButton.addEventListener("click", () => downloadImage("image/png", "png"));
   downloadJpgButton.addEventListener("click", () => downloadImage("image/jpeg", "jpg"));
