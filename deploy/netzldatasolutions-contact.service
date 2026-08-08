@@ -1,0 +1,31 @@
+[Unit]
+Description=Netzl Data Solutions contact form
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=deploy
+Group=deploy
+WorkingDirectory=/home/deploy/apps/netzldatasolutions.at
+EnvironmentFile=/home/deploy/apps/netzldatasolutions.at/.env
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /home/deploy/apps/netzldatasolutions.at/server/contact-server.mjs
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

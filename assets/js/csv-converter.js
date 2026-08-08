@@ -217,7 +217,7 @@ json.dumps({
 
       summaryRows.textContent = String(result.data_rows);
       summaryColumns.textContent = String(result.header_columns);
-      summaryFormat.textContent = `Semikolon-CSV · ${decodedFile.label}`;
+      summaryFormat.textContent = `Semikolon-CSV, ${decodedFile.label}`;
       previewOutput.textContent = result.preview || "Die konvertierte Datei enthält keine darstellbaren Zeilen.";
       setWarnings(result.padded_rows || []);
       setMessage("Die Datei wurde erfolgreich umgewandelt.", "success");

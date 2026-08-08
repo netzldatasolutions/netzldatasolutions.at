@@ -1,307 +1,184 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>QR-Code Generator | Netzl Data Solutions</title>
-  <meta name="description"
-    content="QR-Codes direkt im Browser erstellen und als PNG, JPG, SVG oder PDF herunterladen.">
+  <meta name="description" content="QR-Codes direkt im Browser erstellen und als PNG, JPG, SVG oder PDF herunterladen.">
   <meta name="robots" content="noindex, nofollow">
-
+  <meta name="theme-color" content="#14231f">
   <link href="assets/img/favicon.svg" rel="icon">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
-
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="assets/css/main.css" rel="stylesheet">
-
-  <style>
-    .qr-card {
-      border: 1px solid rgba(71, 72, 75, 0.08);
-      border-radius: 1rem;
-    }
-
-    .qr-preview {
-      min-height: 22rem;
-      border: 1px solid rgba(71, 72, 75, 0.08);
-      border-radius: 0.85rem;
-      background: #f7fbfa;
-      display: grid;
-      place-items: center;
-      padding: 1.25rem;
-    }
-
-    .qr-preview canvas,
-    .qr-preview svg {
-      max-width: 100%;
-      height: auto;
-      background: transparent;
-      box-shadow: 0 0.75rem 2rem rgba(47, 53, 59, 0.08);
-    }
-
-    .qr-color-field {
-      width: 3.5rem;
-      min-width: 3.5rem;
-      padding: 0.25rem;
-    }
-
-    .qr-downloads .btn {
-      min-width: 6rem;
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/css/staging.css" rel="stylesheet">
+  <link href="assets/css/subpages.css" rel="stylesheet">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
+<body class="subpage-body">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
-<body class="index-page">
-
-  <header id="header" class="header sticky-top">
-    <div class="branding d-flex align-items-center">
-      <div class="container position-relative d-flex align-items-center justify-content-between">
-
-        <a href="/" class="logo d-flex align-items-center">
-          <img src="assets/img/logo.svg" alt="Netzl Data Solutions Logo">
-        </a>
-
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="/#start">Start</a></li>
-            <li><a href="/#services">Leistungen</a></li>
-            <li><a href="/#process">Ablauf</a></li>
-            <li><a href="/#about">Über uns</a></li>
-            <li><a href="/#contact">Kontakt</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
-
-      </div>
+  <header class="site-header is-scrolled" id="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Netzl Data Solutions – Startseite">
+        <img src="assets/img/logo.svg" alt="Netzl Data Solutions" width="143" height="45">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+        <span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
+        <a href="/#wandel">Leistungen &amp; Beispiele</a>
+        <a href="/#arbeitsweise">Arbeitsweise</a>
+        <a href="/#ueber-uns">Über uns</a>
+        <a href="/#ki">KI &amp; Agenten</a>
+        <a class="nav-cta" href="/#kontakt">Projekt besprechen <span aria-hidden="true">↗</span></a>
+      </nav>
     </div>
   </header>
 
-  <main class="main">
-
-    <section class="section">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row justify-content-center">
-          <div class="col-lg-10">
-
-            <div class="section-title text-start mb-4">
-              <h2>QR-Code Generator</h2>
-              <p>QR-Codes direkt im Browser erstellen und herunterladen.</p>
-            </div>
-
-            <div class="card shadow-sm border-0 rounded-4 mb-4">
-              <div class="card-body p-4 p-md-5">
-                <p class="mb-0">
-                  Der Inhalt wird lokal im Browser verarbeitet. Der QR-Code kann als PNG, JPG, SVG oder PDF gespeichert
-                  werden.
-                </p>
-              </div>
-            </div>
-
-            <div class="row g-4">
-              <div class="col-lg-5">
-                <div class="card shadow-sm border-0 qr-card h-100">
-                  <div class="card-body p-4">
-                    <h4 class="mb-3">Inhalt</h4>
-
-                    <div class="mb-4">
-                      <label class="form-label" for="qr-text">Text oder URL</label>
-                      <textarea id="qr-text" class="form-control" rows="7"
-                        placeholder="https://www.netzldatasolutions.at"></textarea>
-                    </div>
-
-                    <div class="row g-3 mb-4">
-                      <div class="col-sm-6">
-                        <label class="form-label" for="qr-size">Größe</label>
-                        <select id="qr-size" class="form-select">
-                          <option value="512" selected>512 px</option>
-                          <option value="768">768 px</option>
-                          <option value="1024">1024 px</option>
-                          <option value="1536">1536 px</option>
-                        </select>
-                      </div>
-                      <div class="col-sm-6">
-                        <label class="form-label" for="qr-error-correction">Fehlerkorrektur</label>
-                        <select id="qr-error-correction" class="form-select">
-                          <option value="L">Niedrig</option>
-                          <option value="M" selected>Mittel</option>
-                          <option value="Q">Hoch</option>
-                          <option value="H">Sehr hoch</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="row g-3 mb-4">
-                      <div class="col-sm-6">
-                        <label class="form-label" for="qr-foreground">Vordergrund</label>
-                        <div class="input-group">
-                          <input id="qr-foreground" class="form-control form-control-color qr-color-field" type="color"
-                            value="#1f2933">
-                          <input id="qr-foreground-text" class="form-control" type="text" value="#1f2933"
-                            aria-label="Vordergrundfarbe">
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <label class="form-label" for="qr-background">Hintergrund</label>
-                        <div class="input-group">
-                          <input id="qr-background" class="form-control form-control-color qr-color-field" type="color"
-                            value="#ffffff">
-                          <input id="qr-background-text" class="form-control" type="text" value="#ffffff"
-                            aria-label="Hintergrundfarbe">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-check mb-4">
-                      <input class="form-check-input" type="checkbox" value="" id="qr-transparent-background">
-                      <label class="form-check-label" for="qr-transparent-background">
-                        Transparenter Hintergrund (PNG und SVG)
-                      </label>
-                    </div>
-
-                    <div class="mb-4">
-                      <label class="form-label" for="qr-margin">Rand</label>
-                      <input id="qr-margin" class="form-range" type="range" min="1" max="8" value="4">
-                    </div>
-
-                    <div id="qr-message" class="alert alert-warning d-none mb-0" role="alert"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-7">
-                <div class="card shadow-sm border-0 qr-card h-100">
-                  <div class="card-body p-4">
-                    <div class="d-flex flex-wrap justify-content-between gap-3 align-items-center mb-3">
-                      <h4 class="mb-0">Vorschau</h4>
-                      <span id="qr-summary" class="text-muted small">Noch kein QR-Code erstellt</span>
-                    </div>
-
-                    <div id="qr-preview" class="qr-preview mb-4">
-                      <span class="text-muted">Text oder URL eingeben</span>
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label" for="qr-filename">Dateiname</label>
-                      <input id="qr-filename" class="form-control" type="text" value="qr-code"
-                        placeholder="qr-code">
-                    </div>
-
-                    <div class="d-flex flex-wrap gap-2 qr-downloads">
-                      <button id="download-png" class="btn btn-success" type="button" disabled>
-                        <i class="bi bi-file-earmark-image me-1"></i> PNG
-                      </button>
-                      <button id="download-jpg" class="btn btn-outline-success" type="button" disabled>
-                        <i class="bi bi-file-earmark-image me-1"></i> JPG
-                      </button>
-                      <button id="download-svg" class="btn btn-outline-success" type="button" disabled>
-                        <i class="bi bi-filetype-svg me-1"></i> SVG
-                      </button>
-                      <button id="download-pdf" class="btn btn-outline-success" type="button" disabled>
-                        <i class="bi bi-filetype-pdf me-1"></i> PDF
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+  <main class="subpage-main" id="main">
+    <section class="subpage-hero tool-hero">
+      <div class="shell subpage-hero-grid">
+        <div class="reveal">
+          <p class="eyebrow"><span></span>Kleines Werkzeug für den Alltag</p>
+          <h1>QR-Code<em> Generator.</em></h1>
+          <a class="subpage-backlink" href="/">← Zur Startseite</a>
+        </div>
+        <div class="local-processing reveal">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 10V8a5 5 0 0 1 10 0v2M6 10h12v10H6z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="m9.5 15 1.7 1.7 3.5-3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div>
+            <strong>Direkt in Ihrem Browser</strong>
+            <span>Inhalt und QR-Code werden lokal verarbeitet. Sie laden Ihre Daten nicht auf unseren Server.</span>
           </div>
         </div>
-
       </div>
     </section>
 
+    <section class="tool-section">
+      <div class="shell tool-workspace">
+        <div class="tool-card reveal">
+          <div class="tool-card-head">
+            <h2>Inhalt &amp; Gestaltung</h2>
+            <span>Änderungen erscheinen sofort</span>
+          </div>
+
+          <div class="control-group">
+            <label for="qr-text">Text oder URL</label>
+            <textarea id="qr-text" rows="7" placeholder="https://www.netzldatasolutions.at"></textarea>
+          </div>
+
+          <div class="control-grid control-group">
+            <div>
+              <label for="qr-size">Größe</label>
+              <select id="qr-size">
+                <option value="512" selected>512 px</option>
+                <option value="768">768 px</option>
+                <option value="1024">1024 px</option>
+                <option value="1536">1536 px</option>
+              </select>
+            </div>
+            <div>
+              <label for="qr-error-correction">Fehlerkorrektur</label>
+              <select id="qr-error-correction">
+                <option value="L">Niedrig</option>
+                <option value="M" selected>Mittel</option>
+                <option value="Q">Hoch</option>
+                <option value="H">Sehr hoch</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control-grid control-group">
+            <div>
+              <label for="qr-foreground">Vordergrund</label>
+              <div class="input-group">
+                <input id="qr-foreground" type="color" value="#1f2933" aria-label="Vordergrundfarbe wählen">
+                <input id="qr-foreground-text" type="text" value="#1f2933" aria-label="Vordergrundfarbe als Hex-Wert">
+              </div>
+            </div>
+            <div>
+              <label for="qr-background">Hintergrund</label>
+              <div class="input-group">
+                <input id="qr-background" type="color" value="#ffffff" aria-label="Hintergrundfarbe wählen">
+                <input id="qr-background-text" type="text" value="#ffffff" aria-label="Hintergrundfarbe als Hex-Wert">
+              </div>
+            </div>
+          </div>
+
+          <div class="tool-check">
+            <input type="checkbox" id="qr-transparent-background">
+            <label for="qr-transparent-background">Transparenter Hintergrund für PNG und SVG</label>
+          </div>
+
+          <div class="control-group">
+            <label for="qr-margin">Rand rund um den Code</label>
+            <input id="qr-margin" type="range" min="1" max="8" value="4">
+          </div>
+
+          <div id="qr-message" class="alert alert-warning d-none" role="alert"></div>
+        </div>
+
+        <div class="tool-card tool-card-dark reveal">
+          <div class="tool-card-head">
+            <h2>Vorschau</h2>
+            <span id="qr-summary">Noch kein QR-Code erstellt</span>
+          </div>
+
+          <div id="qr-preview" class="qr-preview">
+            <span class="text-muted">Text oder URL eingeben</span>
+          </div>
+
+          <div class="download-area">
+            <div>
+              <label for="qr-filename">Dateiname</label>
+              <input id="qr-filename" type="text" value="qr-code" placeholder="qr-code">
+            </div>
+            <div class="qr-download-control">
+              <button id="download-main" class="button button-lime qr-main-download" type="button" disabled>
+                QR-Code herunterladen <span aria-hidden="true">↓</span>
+              </button>
+              <div class="tool-actions qr-downloads" aria-label="Alternatives Dateiformat">
+                <button id="download-png" class="btn btn-outline-success" type="button" disabled>PNG</button>
+                <button id="download-jpg" class="btn btn-outline-success" type="button" disabled>JPG</button>
+                <button id="download-svg" class="btn btn-outline-success" type="button" disabled>SVG</button>
+                <button id="download-pdf" class="btn btn-outline-success" type="button" disabled>PDF</button>
+              </div>
+            </div>
+          </div>
+          <p class="qr-download-note" id="qr-download-note" hidden>Auf iPhone und iPad öffnet sich das Teilen-Menü. Dort können Sie „In Dateien sichern“ auswählen.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer id="footer" class="footer light-background">
-
-    <div class="container footer-top">
-      <div class="row gy-4">
-
-        <div class="col-lg-4 col-md-6 footer-about">
-          <a href="/" class="d-flex align-items-center">
-            <span class="sitename">Netzl Data Solutions</span>
-          </a>
-          <div class="footer-contact pt-3">
-            <p class="mb-0">kontakt@netzldatasolutions.at</p>
-            <p class="mb-0">+43 681 81284922</p>
-            <p class="mb-0">2464 Göttlesbrunn, Österreich</p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Navigation</h4>
-          <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="/#start">Start</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="/#services">Leistungen</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="/#process">Ablauf</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="/#about">Über uns</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="/#contact">Kontakt</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-2 col-md-6 footer-links">
-          <h4>Rechtliches</h4>
-          <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="impressum.html">Impressum</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="datenschutz.html">Datenschutz</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Apps</h4>
-          <ul>
-            <li><i class="bi bi-chevron-right"></i> <a href="qr-code-generator.html" aria-current="page">QR-Code Generator</a></li>
-            <li><i class="bi bi-chevron-right"></i> <a href="csv-konverter.html">CSV-Format Konverter</a></li>
-          </ul>
-        </div>
-
-      </div>
+  <footer class="site-footer">
+    <div class="shell footer-top">
+      <a class="brand footer-brand" href="/" aria-label="Zur Startseite">
+        <img src="assets/img/logo.svg" alt="Netzl Data Solutions" width="143" height="45">
+      </a>
+      <p>Daten, die Sinn machen.<br>Mehr Zeit für's Wesentliche.</p>
+      <a class="footer-mail" href="mailto:kontakt@netzldatasolutions.at">kontakt@netzldatasolutions.at <span aria-hidden="true">↗</span></a>
     </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Netzl Data Solutions</strong> <span>All Rights Reserved</span></p>
+    <div class="shell footer-bottom">
+      <p>© <span id="current-year">2026</span> Netzl Data Solutions</p>
+      <nav aria-label="Weitere Links">
+        <a href="qr-code-generator.html" aria-current="page">QR-Code Generator</a>
+        <a href="csv-konverter.html">CSV-Konverter</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
     </div>
-
   </footer>
 
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
-
-  <div id="preloader">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
-  <script src="assets/js/qr-code-generator.js"></script>
-
+  <script src="assets/js/staging.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" defer></script>
+  <script src="assets/js/qr-code-generator.js" defer></script>
 </body>
-
 </html>

@@ -14,10 +14,15 @@
   const message = document.getElementById("qr-message");
   const summary = document.getElementById("qr-summary");
   const filenameInput = document.getElementById("qr-filename");
+  const downloadMainButton = document.getElementById("download-main");
   const downloadPngButton = document.getElementById("download-png");
   const downloadJpgButton = document.getElementById("download-jpg");
   const downloadSvgButton = document.getElementById("download-svg");
   const downloadPdfButton = document.getElementById("download-pdf");
+  const downloadNote = document.getElementById("qr-download-note");
+  const isAppleMobile =
+    /iPad|iPhone|iPod/iu.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
   let currentQr;
   let currentSvg = "";
@@ -36,7 +41,7 @@
   }
 
   function setDownloadsEnabled(enabled) {
-    [downloadPngButton, downloadJpgButton, downloadSvgButton, downloadPdfButton].forEach((button) => {
+    [downloadMainButton, downloadPngButton, downloadJpgButton, downloadSvgButton, downloadPdfButton].forEach((button) => {
       button.disabled = !enabled;
     });
   }
@@ -155,7 +160,7 @@
       currentCanvas = createCanvas(qr, size, margin, foreground, background, transparentBackground);
       currentSvg = createSvg(qr, size, margin, foreground, background, transparentBackground);
       preview.replaceChildren(currentCanvas);
-      summary.textContent = `${qr.getModuleCount()} x ${qr.getModuleCount()} Module · ${size} px${transparentBackground ? " · Transparenter Hintergrund" : ""}`;
+      summary.textContent = `${qr.getModuleCount()} x ${qr.getModuleCount()} Module, ${size} px${transparentBackground ? ", transparenter Hintergrund" : ""}`;
       setDownloadsEnabled(true);
       setMessage("", "warning");
     } catch (error) {
@@ -195,29 +200,72 @@
     link.remove();
   }
 
-  function downloadBlob(blob, name) {
-    const url = URL.createObjectURL(blob);
-    downloadUrl(url, name);
-    window.setTimeout(() => URL.revokeObjectURL(url), 500);
+  function dataUrlToBlob(dataUrl) {
+    const [metadata, encodedData] = dataUrl.split(",");
+    const mimeType = metadata.match(/^data:([^;]+)/u)?.[1] || "application/octet-stream";
+    const binary = window.atob(encodedData);
+    const bytes = new Uint8Array(binary.length);
+
+    for (let index = 0; index < binary.length; index += 1) {
+      bytes[index] = binary.charCodeAt(index);
+    }
+
+    return new Blob([bytes], { type: mimeType });
   }
 
-  function downloadImage(type, extension) {
-    if (!currentCanvas) return;
-    const transparentBackground = Boolean(transparentBackgroundInput && transparentBackgroundInput.checked);
+  async function saveFile(blob, name, previewUrl) {
+    if (
+      isAppleMobile &&
+      typeof navigator.share === "function" &&
+      typeof navigator.canShare === "function" &&
+      typeof File === "function"
+    ) {
+      const file = new File([blob], name, { type: blob.type || "application/octet-stream" });
 
-    if (type === "image/png" && transparentBackground) {
-      downloadUrl(currentCanvas.toDataURL(type), filename(extension));
+      if (navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: "QR-Code speichern"
+          });
+          return;
+        } catch (error) {
+          if (error?.name === "AbortError") return;
+        }
+      }
+    }
+
+    if (isAppleMobile) {
+      const temporaryUrl = previewUrl || URL.createObjectURL(blob);
+      const openedWindow = window.open(temporaryUrl, "_blank");
+      if (openedWindow) openedWindow.opener = null;
+      if (!previewUrl) window.setTimeout(() => URL.revokeObjectURL(temporaryUrl), 60 * 1000);
       return;
     }
 
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = currentCanvas.width;
-    canvas.height = currentCanvas.height;
-    ctx.fillStyle = transparentBackground ? "#ffffff" : backgroundInput.value;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(currentCanvas, 0, 0);
-    downloadUrl(canvas.toDataURL(type, 0.95), filename(extension));
+    const objectUrl = URL.createObjectURL(blob);
+    downloadUrl(objectUrl, name);
+    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 2000);
+  }
+
+  async function downloadImage(type, extension) {
+    if (!currentCanvas) return;
+    const transparentBackground = Boolean(transparentBackgroundInput && transparentBackgroundInput.checked);
+    let outputCanvas = currentCanvas;
+
+    if (type === "image/jpeg" || (type === "image/png" && !transparentBackground)) {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = currentCanvas.width;
+      canvas.height = currentCanvas.height;
+      ctx.fillStyle = type === "image/jpeg" ? "#ffffff" : backgroundInput.value;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(currentCanvas, 0, 0);
+      outputCanvas = canvas;
+    }
+
+    const dataUrl = outputCanvas.toDataURL(type, 0.95);
+    await saveFile(dataUrlToBlob(dataUrl), filename(extension), dataUrl);
   }
 
   async function downloadPdf() {
@@ -251,7 +299,7 @@
     }
 
     pdf.addImage(sourceCanvas.toDataURL("image/png"), "PNG", x, 28, imageSize, imageSize);
-    pdf.save(filename("pdf"));
+    await saveFile(pdf.output("blob"), filename("pdf"));
   }
 
   [textInput, sizeSelect, errorCorrectionSelect, marginInput].forEach((input) => {
@@ -267,13 +315,18 @@
     transparentBackgroundInput.addEventListener("change", scheduleRender);
   }
 
+  downloadMainButton.addEventListener("click", () => downloadImage("image/png", "png"));
   downloadPngButton.addEventListener("click", () => downloadImage("image/png", "png"));
   downloadJpgButton.addEventListener("click", () => downloadImage("image/jpeg", "jpg"));
-  downloadSvgButton.addEventListener("click", () => {
+  downloadSvgButton.addEventListener("click", async () => {
     if (!currentSvg) return;
-    downloadBlob(new Blob([currentSvg], { type: "image/svg+xml;charset=utf-8" }), filename("svg"));
+    await saveFile(new Blob([currentSvg], { type: "image/svg+xml;charset=utf-8" }), filename("svg"));
   });
   downloadPdfButton.addEventListener("click", downloadPdf);
+
+  if (isAppleMobile && downloadNote) {
+    downloadNote.hidden = false;
+  }
 
   renderQr();
 })();
