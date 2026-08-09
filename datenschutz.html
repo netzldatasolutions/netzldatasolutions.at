@@ -16,6 +16,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="assets/css/staging.css" rel="stylesheet">
   <link href="assets/css/subpages.css" rel="stylesheet">
+  <link href="/assets/css/analytics.css" rel="stylesheet">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body class="subpage-body">
@@ -60,7 +61,7 @@
             <a href="#verantwortlicher">Verantwortlicher</a>
             <a href="#server-logfiles">Server-Logfiles</a>
             <a href="#kontakt">Kontakt</a>
-            <a href="#cookies">Cookies &amp; Tracking</a>
+            <a href="#webanalyse">Cookies &amp; Webanalyse</a>
             <a href="#rechte">Ihre Rechte</a>
           </nav>
         </aside>
@@ -68,7 +69,7 @@
         <div class="legal-document reveal">
           <section class="legal-block" id="grundsatz">
             <h2>Datenschutzerklärung</h2>
-            <p>Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TKG 2003).</p>
+            <p>Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten ausschließlich auf Grundlage der gesetzlichen Bestimmungen, insbesondere der DSGVO und des TKG 2021.</p>
           </section>
 
           <section class="legal-block" id="verantwortlicher">
@@ -85,7 +86,7 @@
           <section class="legal-block" id="server-logfiles">
             <h2>Server-Logfiles</h2>
             <p>Beim Besuch dieser Website werden automatisch Informationen erfasst, die Ihr Browser übermittelt. Dazu gehören insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Seiten, Browsertyp und Betriebssystem. Diese Daten sind technisch erforderlich, um die Website bereitzustellen.</p>
-            <p>Je nach aufgerufener Umgebung wird diese Website über eigene Server oder über GitHub Pages ausgeliefert. Im Rahmen des Hostings können Server-Logfiles verarbeitet werden. Eine personenbezogene Auswertung durch uns findet nicht statt.</p>
+            <p>Diese Website wird über eigene Server bereitgestellt. Die Server-Logfiles werden ausschließlich für Betrieb, Sicherheit und Fehleranalyse verwendet und nicht mit den Daten der optionalen Webanalyse zusammengeführt.</p>
           </section>
 
           <section class="legal-block" id="kontakt">
@@ -94,9 +95,16 @@
             <p>Für den technischen Versand von Nachrichten aus dem Kontaktformular verwenden wir Postmark, einen Dienst der AC PM LLC. Dabei werden die im Formular angegebenen Kontaktdaten und Nachrichteninhalte an Postmark übermittelt und dort als Auftragsverarbeiter verarbeitet. Weitere Informationen finden Sie in der <a href="https://postmarkapp.com/privacy-policy" rel="noopener noreferrer">Datenschutzerklärung von Postmark</a>.</p>
           </section>
 
-          <section class="legal-block" id="cookies">
-            <h2>Cookies &amp; Tracking</h2>
-            <p>Diese Website verwendet keine Cookies, die eine Analyse des Nutzerverhaltens ermöglichen, und setzt kein Tracking (z.B. Google Analytics) ein.</p>
+          <section class="legal-block" id="webanalyse">
+            <h2>Cookies &amp; Webanalyse</h2>
+            <p>Mit Ihrer ausdrücklichen Zustimmung verwenden wir eine selbst betriebene, datensparsame Webanalyse. Sie hilft uns zu verstehen, welche Seiten und Verweise genutzt werden und ob die Website auf unterschiedlichen Geräten gut funktioniert. Es werden keine Daten an einen externen Analysedienst übermittelt.</p>
+            <p>Erfasst werden Seitenaufrufe, pseudonyme Besucher- und Sitzungskennungen, die Herkunft eines Besuchs (verweisende Domain sowie gegebenenfalls die Kampagnenparameter <code>utm_source</code> und <code>utm_campaign</code>), die grobe Geräteklasse, aktive Besuchszeit, angeklickte Linkziele und erfolgreiche Übermittlungen des Kontaktformulars. Inhalte und Eingaben des Kontaktformulars, vollständige IP-Adressen sowie vollständige verweisende URLs werden nicht in der Analysedatenbank gespeichert.</p>
+            <p>Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO und § 165 Abs. 3 TKG 2021. Vor Ihrer Zustimmung werden keine Analyseereignisse übertragen und keine Analysekennungen gespeichert.</p>
+            <h3>Speicherdauer</h3>
+            <p>Die Auswahl in den Datenschutz-Einstellungen und die pseudonyme Besucherkennung werden für bis zu 180 Tage in den First-Party-Cookies <code>nds_analytics_consent</code> und <code>nds_analytics_visitor</code> gespeichert. Die Sitzungskennung wird im Sitzungsspeicher des Browsers geführt und nach 30 Minuten Inaktivität erneuert. Einzelne Analyseereignisse werden nach spätestens 90 Tagen gelöscht.</p>
+            <h3>Einwilligung ändern oder widerrufen</h3>
+            <p>Sie können Ihre Entscheidung jederzeit ändern. Beim Widerruf werden die Besucherkennung und die aktuelle Sitzungskennung auf Ihrem Gerät gelöscht; ab diesem Zeitpunkt werden keine weiteren Analyseereignisse übertragen.</p>
+            <button class="button button-dark" type="button" data-analytics-settings>Datenschutz-Einstellungen öffnen</button>
           </section>
 
           <section class="legal-block" id="rechte">
@@ -126,10 +134,12 @@
         <a href="csv-konverter.html">CSV-Konverter</a>
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html" aria-current="page">Datenschutz</a>
+        <button class="privacy-settings" type="button" data-analytics-settings>Datenschutz-Einstellungen</button>
       </nav>
     </div>
   </footer>
 
+  <script src="/assets/js/analytics.js" defer></script>
   <script src="assets/js/staging.js" defer></script>
 </body>
 </html>

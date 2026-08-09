@@ -1,0 +1,148 @@
+.nds-consent-dialog[hidden] {
+  display: none;
+}
+
+.nds-consent-dialog {
+  position: fixed;
+  z-index: 10000;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  color: #14231f;
+  font-family: Manrope, system-ui, sans-serif;
+}
+
+.nds-consent-inner {
+  width: min(100%, 960px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  align-items: end;
+  padding: 24px;
+  border: 1px solid rgba(20, 35, 31, 0.2);
+  border-radius: 16px;
+  background: #f4f3ed;
+  box-shadow: 0 22px 70px rgba(20, 35, 31, 0.24);
+}
+
+.nds-consent-copy h2 {
+  margin: 3px 0 8px;
+  max-width: 720px;
+  color: #14231f;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  line-height: 1.22;
+}
+
+.nds-consent-copy p {
+  max-width: 720px;
+  margin: 0 0 8px;
+  color: #3f514c;
+  font-size: 0.91rem;
+  line-height: 1.55;
+}
+
+.nds-consent-copy .nds-consent-kicker {
+  margin: 0;
+  color: #4e8d31;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.nds-consent-copy .nds-consent-status:empty {
+  display: none;
+}
+
+.nds-consent-copy a {
+  color: #14231f;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+.nds-consent-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(112px, 1fr));
+  gap: 9px;
+  min-width: 250px;
+}
+
+.nds-consent-actions button {
+  min-height: 44px;
+  border: 1px solid #14231f;
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: #fff;
+  color: #14231f;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.nds-consent-actions button:hover,
+.nds-consent-actions button:focus-visible {
+  background: #14231f;
+  color: #fff;
+}
+
+.nds-consent-actions button:focus-visible,
+.privacy-settings:focus-visible {
+  outline: 3px solid #a7df61;
+  outline-offset: 3px;
+}
+
+.nds-consent-close {
+  grid-column: 1 / -1;
+  border-color: transparent !important;
+  background: transparent !important;
+  color: #3f514c !important;
+}
+
+.nds-consent-dialog.is-required .nds-consent-close {
+  display: none;
+}
+
+.privacy-settings {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.privacy-settings:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 720px) {
+  .nds-consent-dialog {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .nds-consent-inner {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .nds-consent-actions {
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nds-consent-dialog,
+  .nds-consent-actions button {
+    scroll-behavior: auto;
+    transition: none;
+  }
+}

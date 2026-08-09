@@ -316,6 +316,7 @@
 
         contactForm.reset();
         formStartedAt = Date.now();
+        window.netzlAnalytics?.trackFormSubmission();
         showContactStatus("Danke! Ihre Anfrage wurde gesendet. Wir melden uns persönlich bei Ihnen.", "success");
       } catch (error) {
         const message =
