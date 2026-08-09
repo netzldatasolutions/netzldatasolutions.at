@@ -1,0 +1,43 @@
+# Bootstrap configuration used only until the first TLS certificate exists.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name tickets.netzldatasolutions.at;
+
+    root /home/deploy/apps/netzldatasolutions.at/tickets;
+    index index.html;
+
+    access_log /var/log/nginx/tickets.netzldatasolutions.at.access.log;
+    error_log  /var/log/nginx/tickets.netzldatasolutions.at.error.log;
+
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+
+    location ^~ /.well-known/acme-challenge/ {
+        default_type text/plain;
+        try_files $uri =404;
+    }
+
+    # Reuse the existing brand logo and favicons without duplicating them.
+    location ^~ /assets/ {
+        alias /home/deploy/apps/netzldatasolutions.at/assets/;
+        access_log off;
+        expires 7d;
+        add_header Cache-Control "public, max-age=604800";
+        add_header X-Content-Type-Options "nosniff" always;
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+
+    location ~* \.(php|phtml|phar)$ {
+        return 404;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

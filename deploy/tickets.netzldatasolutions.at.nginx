@@ -1,0 +1,66 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name tickets.netzldatasolutions.at;
+
+    root /home/deploy/apps/netzldatasolutions.at/tickets;
+
+    location ^~ /.well-known/acme-challenge/ {
+        default_type text/plain;
+        try_files $uri =404;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name tickets.netzldatasolutions.at;
+
+    root /home/deploy/apps/netzldatasolutions.at/tickets;
+    index index.html;
+
+    access_log /var/log/nginx/tickets.netzldatasolutions.at.access.log;
+    error_log  /var/log/nginx/tickets.netzldatasolutions.at.error.log;
+
+    ssl_certificate /etc/letsencrypt/live/tickets.netzldatasolutions.at/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/tickets.netzldatasolutions.at/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+    add_header Content-Security-Policy "default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests" always;
+
+    location ^~ /.well-known/acme-challenge/ {
+        default_type text/plain;
+        try_files $uri =404;
+    }
+
+    # Reuse the existing brand logo and favicons without duplicating them.
+    location ^~ /assets/ {
+        alias /home/deploy/apps/netzldatasolutions.at/assets/;
+        access_log off;
+        expires 7d;
+        add_header Cache-Control "public, max-age=604800";
+        add_header X-Content-Type-Options "nosniff" always;
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+
+    location ~* \.(php|phtml|phar)$ {
+        return 404;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

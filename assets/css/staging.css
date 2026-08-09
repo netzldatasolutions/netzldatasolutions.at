@@ -5558,6 +5558,57 @@ input[type="range"]::-moz-range-thumb {
   }
 }
 
+/* Keep the invoice example compact and readable on narrow screens. */
+@media (max-width: 620px) {
+  .combined-story .invoice-slide {
+    grid-template-rows: auto auto;
+    gap: 8px;
+    align-content: center;
+  }
+
+  .combined-story .invoice-slide .invoice-flow {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 10px auto 10px auto;
+    gap: 2px;
+    align-content: center;
+    padding: 8px;
+    border-radius: 18px;
+  }
+
+  .combined-story .invoice-slide .invoice-flow > div {
+    grid-template-columns: 26px 70px minmax(0, 1fr);
+    gap: 8px;
+    align-items: center;
+    align-content: center;
+    min-height: 0;
+    padding: 8px 10px;
+    border-radius: 12px;
+  }
+
+  .combined-story .invoice-slide .invoice-flow > div > span {
+    width: 26px;
+    height: 26px;
+  }
+
+  .combined-story .invoice-slide .invoice-flow small {
+    margin: 0;
+    font-size: 0.43rem;
+    line-height: 1.25;
+  }
+
+  .combined-story .invoice-slide .invoice-flow strong {
+    font-size: 0.58rem;
+    line-height: 1.3;
+  }
+
+  .combined-story .invoice-slide .invoice-flow > i {
+    height: 10px;
+    font-size: 0.62rem;
+    line-height: 10px;
+    transform: rotate(90deg);
+  }
+}
+
 
 /* Inline Formspree submission and unobtrusive bot protection */
 .contact-form {

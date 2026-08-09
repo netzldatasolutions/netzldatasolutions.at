@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ticket-Hub für eigene Events &amp; Shops | Netzl Data Solutions</title>
+  <meta name="description" content="Der Ticket-Hub von Netzl Data Solutions: Veranstaltungen, Tickets, Einlass und Auswertungen in einem eigenen System. Mit fixer Monatsrate und ohne Ticketgebühr.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#14231f">
+  <link rel="canonical" href="https://tickets.netzldatasolutions.at/">
+  <meta property="og:title" content="Ihre Tickets. Ihre Marke. Keine Ticketgebühr.">
+  <meta property="og:description" content="Ein eigener Ticket- und Shop-Bereich für wiederkehrende Veranstaltungen – eingerichtet und laufend betreut von Netzl Data Solutions.">
+  <meta property="og:url" content="https://tickets.netzldatasolutions.at/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ticket-hub.css">
+  <script src="ticket-hub.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header" id="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#start" aria-label="Ticket-Hub – Startseite">
+        <img src="/assets/img/logo.svg" alt="Netzl Data Solutions" width="143" height="45">
+        <span>Ticket-Hub</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
+        <a href="#ablauf">So funktioniert's</a>
+        <a href="#moeglichkeiten">Möglichkeiten</a>
+        <a href="#kosten">Kostenmodell</a>
+        <a class="nav-cta" href="#kontakt">Ticket-Hub kennenlernen <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="ticket-hero" id="start">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="shell hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span></span>Ticket- und Shoplösung aus Niederösterreich</p>
+          <h1>Ihre Tickets.<br><em>Ihre Marke.</em></h1>
+          <p class="hero-lead">Veranstaltungen selbst verwalten, Tickets direkt verkaufen und den Einlass im Blick behalten – in einem System, das zu Ihrem Betrieb passt.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#kontakt">Unverbindlich ansehen <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#ablauf">So läuft es ab <span aria-hidden="true">↓</span></a>
+          </div>
+          <ul class="hero-facts" aria-label="Kostenmodell">
+            <li><strong>Einmaliges Setup</strong><span>Wir richten alles gemeinsam ein.</span></li>
+            <li><strong>Fixe Monatskosten</strong><span>Für Betrieb, Wartung und Betreuung.</span></li>
+            <li class="fact-highlight"><strong>Keine Ticketgebühr</strong><span>Keine Provision pro Verkauf.</span></li>
+          </ul>
+        </div>
+
+        <div class="product-stage reveal" role="img" aria-label="Beispielansicht des Ticket-Hubs mit Verwaltung, Verkaufszahlen und öffentlichem Ticketshop.">
+          <div class="stage-grid" aria-hidden="true"></div>
+
+          <div class="admin-window">
+            <div class="window-bar">
+              <span class="window-mark">Ticket-Hub</span>
+              <span class="window-status"><i></i> System läuft</span>
+            </div>
+            <div class="admin-layout">
+              <aside aria-hidden="true">
+                <strong>Verwaltung</strong>
+                <span class="is-current">Übersicht</span>
+                <span>Events</span>
+                <span>Bestellungen</span>
+                <span>Einlass</span>
+                <span>Auswertungen</span>
+              </aside>
+              <div class="admin-content">
+                <div class="event-head">
+                  <div><small>Nächstes Event</small><strong>Sommerabend 2026</strong></div>
+                  <span>Online</span>
+                </div>
+                <div class="metric-row">
+                  <div><small>Verkauft</small><strong>248</strong><span>von 320</span></div>
+                  <div><small>Umsatz</small><strong>€ 11.240</strong><span>direkt über Stripe</span></div>
+                  <div><small>Check-ins</small><strong>0</strong><span>bereit für den Einlass</span></div>
+                </div>
+                <div class="sales-chart" aria-hidden="true">
+                  <div class="chart-title"><strong>Ticketverkauf</strong><span>letzte 7 Tage</span></div>
+                  <div class="chart-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <canvas class="chart-line"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="shop-phone" aria-hidden="true">
+            <div class="phone-top"><span>Ihre Marke</span><i></i></div>
+            <div class="phone-image"><small>14. August 2026</small><strong>Sommerabend</strong></div>
+            <div class="phone-content">
+              <span>Einlass ab 18:00 Uhr</span>
+              <div><strong>Eintritt</strong><b>€ 24,00</b></div>
+              <button type="button" tabindex="-1">Ticket auswählen</button>
+            </div>
+          </div>
+
+          <div class="stage-note note-ticket" aria-hidden="true"><span>✓</span><strong>Ticket versendet</strong></div>
+          <div class="stage-note note-payment" aria-hidden="true"><span>€</span><strong>Zahlung bestätigt</strong></div>
+        </div>
+      </div>
+
+      <div class="shell audience-line reveal">
+        <span>Gedacht für</span>
+        <p>Vereine</p>
+        <p>Gastronomie</p>
+        <p>Kultur</p>
+        <p>Regionen</p>
+        <p>Unternehmen</p>
+      </div>
+    </section>
+
+    <section class="section process-section" id="ablauf">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow"><span></span>Vom ersten Event bis zum Einlass</p>
+          <h2>Einmal einrichten.<br><em>Danach selbst verwalten.</em></h2>
+        </div>
+
+        <div class="process-line reveal">
+          <article>
+            <span>01</span>
+            <small>Gemeinsam starten</small>
+            <h3>Wir richten alles ein.</h3>
+            <p>Branding, Zahlungen, Mails, erstes Event und Testkauf werden sauber vorbereitet.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <small>Im eigenen Admin-Bereich</small>
+            <h3>Sie verwalten Ihre Events.</h3>
+            <p>Termine, Tickets, Kontingente, Texte und Bilder lassen sich selbst anpassen.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <small>Im eigenen Shop</small>
+            <h3>Ihre Gäste kaufen direkt.</h3>
+            <p>Online bezahlen, Bestätigung erhalten und das Ticket am Smartphone dabeihaben.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <small>Beim Event und danach</small>
+            <h3>Einlass und Zahlen stimmen.</h3>
+            <p>Tickets scannen, Vor-Ort-Verkäufe erfassen und Ergebnisse auswerten.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section product-tour">
+      <div class="shell">
+        <div class="tour-intro reveal">
+          <p class="eyebrow eyebrow-light"><span></span>So sieht die Lösung aus</p>
+          <h2>Ein System.<br><em>Drei einfache Ansichten.</em></h2>
+        </div>
+
+        <div class="tour-scroll" data-tour-scroll>
+          <div class="tour-sticky">
+            <div class="tour-rail" aria-label="Bereiche des Ticket-Hubs">
+              <button class="is-active" id="tab-admin" type="button" aria-current="step" aria-controls="panel-admin" data-tour-tab="admin"><span>01</span><strong>Verwalten</strong><small>Events &amp; Produkte</small></button>
+              <button id="tab-shop" type="button" aria-controls="panel-shop" data-tour-tab="shop"><span>02</span><strong>Verkaufen</strong><small>Ihr eigener Shop</small></button>
+              <button id="tab-event" type="button" aria-controls="panel-event" data-tour-tab="event"><span>03</span><strong>Einlass</strong><small>Scannen &amp; auswerten</small></button>
+            </div>
+
+            <div class="tour-panels">
+          <article class="tour-panel is-active" id="panel-admin" aria-labelledby="tab-admin" data-tour-panel="admin">
+            <div class="tour-copy">
+              <span>01 / Verwaltung</span>
+              <h3>Neue Veranstaltung statt neuer Zettelwirtschaft.</h3>
+              <p>Ein funktionierendes Event einfach duplizieren, Datum und Inhalte anpassen und wieder veröffentlichen.</p>
+              <ul>
+                <li>Events und Produkte selbst anlegen</li>
+                <li>Preise und Kontingente festlegen</li>
+                <li>Eigene Texte, Bilder und Farben verwenden</li>
+              </ul>
+            </div>
+            <div class="tour-ui admin-demo" role="img" aria-label="Beispiel einer Eventverwaltung">
+              <div class="demo-top"><span>Event bearbeiten</span><strong>Entwurf gespeichert</strong></div>
+              <div class="demo-form">
+                <label>Veranstaltung<strong>Sommerabend 2026</strong></label>
+                <div><label>Datum<strong>14.08.2026</strong></label><label>Einlass<strong>18:00 Uhr</strong></label></div>
+                <label>Tickets<strong>Standard € 24,00 <i>320 verfügbar</i></strong></label>
+              </div>
+              <div class="demo-actions"><span>Vorschau</span><strong>Veröffentlichen</strong></div>
+            </div>
+          </article>
+
+          <article class="tour-panel" id="panel-shop" aria-labelledby="tab-shop" data-tour-panel="shop">
+            <div class="tour-copy">
+              <span>02 / Öffentlicher Shop</span>
+              <h3>Ein Ticketshop, der nach Ihnen aussieht.</h3>
+              <p>Kein fremdes Plattformgefühl: Logo, Farben, Inhalte und Absender bleiben bei Ihrer Organisation.</p>
+              <ul>
+                <li>Für Smartphone und Desktop optimiert</li>
+                <li>Sichere Zahlung über Stripe</li>
+                <li>Bestätigung und Ticket automatisch per E-Mail</li>
+              </ul>
+            </div>
+            <div class="tour-ui shop-demo" role="img" aria-label="Beispiel eines öffentlichen Ticketshops">
+              <div class="shop-demo-brand">Ihre Marke <span>Warenkorb 1</span></div>
+              <div class="shop-demo-hero"><small>Freitag, 14. August</small><strong>Sommerabend<br>im Innenhof</strong></div>
+              <div class="shop-demo-ticket"><span><small>Eintritt</small><strong>Standardticket</strong></span><b>€ 24,00</b><i>1</i></div>
+              <div class="shop-demo-checkout"><span>Summe <strong>€ 24,00</strong></span><b>Weiter zur Kassa</b></div>
+            </div>
+          </article>
+
+          <article class="tour-panel" id="panel-event" aria-labelledby="tab-event" data-tour-panel="event">
+            <div class="tour-copy">
+              <span>03 / Veranstaltungstag</span>
+              <h3>Scannen, verkaufen und den Überblick behalten.</h3>
+              <p>Am Eingang reicht ein Smartphone. Danach sehen Sie sofort, wie Verkauf, Einlass und Kampagnen gelaufen sind.</p>
+              <ul>
+                <li>QR-Tickets direkt im Browser scannen</li>
+                <li>Abendkassa und Einladungen erfassen</li>
+                <li>Umsatz, Auslastung und Herkunft auswerten</li>
+              </ul>
+            </div>
+            <div class="tour-ui event-demo" role="img" aria-label="Beispiel für Einlass und Auswertung">
+              <div class="scan-card">
+                <small>Einlasskontrolle</small>
+                <div class="scan-frame"><i></i><span>✓</span></div>
+                <strong>Ticket gültig</strong>
+                <p>Standardticket, Eingang Nord</p>
+              </div>
+              <div class="event-stats">
+                <small>Live-Überblick</small>
+                <strong>184 <span>von 248 eingecheckt</span></strong>
+                <div><i></i></div>
+                <p><span>Online 221</span><span>Vor Ort 27</span></p>
+              </div>
+            </div>
+          </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section possibilities" id="moeglichkeiten">
+      <div class="shell">
+        <div class="section-heading compact-heading reveal">
+          <p class="eyebrow"><span></span>So flexibel wie Ihre Veranstaltungen</p>
+          <h2>Was Sie damit<br><em>machen können.</em></h2>
+        </div>
+
+        <div class="use-cases">
+          <article class="use-card reveal">
+            <span>01</span>
+            <div class="use-visual ticket-visual" aria-hidden="true">
+              <small>EVENT</small>
+              <strong>Sommerfest</strong>
+              <i>14 AUG</i>
+              <b>QR</b>
+            </div>
+            <h3>Events &amp; Tickets</h3>
+            <p>Für Konzerte, Verkostungen, Vorträge, Vereinsfeste und Kundenevents.</p>
+            <ul><li>Mehrere Ticketarten</li><li>Kontingente und Rabattcodes</li><li>QR-Tickets und Scanner</li></ul>
+          </article>
+
+          <article class="use-card reveal">
+            <span>02</span>
+            <div class="use-visual workshop-visual" aria-hidden="true">
+              <small>PROGRAMM</small>
+              <div><i>18:00</i><strong>Workshop A</strong></div>
+              <div><i>19:30</i><strong>Workshop B</strong></div>
+              <div><i>21:00</i><strong>Workshop C</strong></div>
+            </div>
+            <h3>Workshops &amp; Zusatzangebote</h3>
+            <p>Für Events mit buchbaren Programmpunkten, Sessions oder Tastings.</p>
+            <ul><li>Eintritt und Zusatzbuchung</li><li>Begrenzte Plätze</li><li>Klare Auswahl im Shop</li></ul>
+          </article>
+
+          <article class="use-card reveal">
+            <span>03</span>
+            <div class="use-visual product-visual" aria-hidden="true">
+              <div><i></i><small>Aktionspaket</small><strong>€ 59,00</strong></div>
+              <b>In den Warenkorb</b>
+            </div>
+            <h3>Produkte &amp; Aktionen</h3>
+            <p>Für limitierte Pakete, Vereinsartikel oder saisonale Verkaufsaktionen.</p>
+            <ul><li>Produkte und Mengen</li><li>Versandoptionen</li><li>Bestellungen und Exporte</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section everyday-section">
+      <div class="shell everyday-grid">
+        <div class="everyday-copy reveal">
+          <p class="eyebrow"><span></span>Im Alltag wichtig</p>
+          <h2>Nicht möglichst viel.<br><em>Sondern das Richtige.</em></h2>
+          <p>Der Ticket-Hub ist für Organisationen gedacht, die ihre Veranstaltungen professionell abwickeln möchten, ohne sich durch eine überladene Großplattform kämpfen zu müssen.</p>
+        </div>
+
+        <div class="everyday-list reveal">
+          <article><span>Wiederkehrende Events</span><strong>Bestehendes Event kopieren, anpassen, veröffentlichen.</strong></article>
+          <article><span>Eigene Zahlungsabwicklung</span><strong>Einnahmen landen über den eigenen Stripe-Account beim Veranstalter.</strong></article>
+          <article><span>Eigener Auftritt</span><strong>Shop, Tickets und E-Mails passen zu Logo und Farben.</strong></article>
+          <article><span>Klare Auswertung</span><strong>Verkäufe, Auslastung, Einlass und Marketinglinks im Blick.</strong></article>
+          <article><span>Persönliche Betreuung</span><strong>Ein Ansprechpartner statt anonymer Plattform-Support.</strong></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pricing-section" id="kosten">
+      <div class="shell">
+        <div class="pricing-heading reveal">
+          <p class="eyebrow eyebrow-light"><span></span>Ein klares Kostenmodell</p>
+          <h2>Planbar statt<br><em>pro Verkauf teurer.</em></h2>
+          <p>Der konkrete Preis richtet sich nach Umfang und gewünschter Anpassung. Das Prinzip bleibt immer gleich.</p>
+        </div>
+
+        <div class="pricing-grid reveal">
+          <article>
+            <span>Einmalig</span>
+            <h3>Setup</h3>
+            <p>Wir richten Ihre Plattform ein und bringen das erste Event gemeinsam live.</p>
+            <ul>
+              <li>Branding und Grundeinstellungen</li>
+              <li>Stripe- und Mail-Anbindung</li>
+              <li>Erstes Event und Testkauf</li>
+              <li>Kurze Einschulung</li>
+            </ul>
+          </article>
+          <article>
+            <span>Monatlich</span>
+            <h3>Fixer Betrieb</h3>
+            <p>Damit die Lösung sicher läuft und Sie im Alltag nicht allein dastehen.</p>
+            <ul>
+              <li>Hosting und Monitoring</li>
+              <li>Wartung und Sicherheitsupdates</li>
+              <li>Regelmäßige Backups</li>
+              <li>Technische Betreuung</li>
+            </ul>
+          </article>
+          <article class="pricing-highlight">
+            <span>Bei jedem Verkauf</span>
+            <h3>0 € Ticketgebühr</h3>
+            <p>Wir verrechnen weder eine Gebühr pro Ticket noch eine Provision auf Ihren Umsatz.</p>
+            <strong>Mehr verkaufte Tickets erhöhen nicht unsere Gebühr.</strong>
+            <small>Übliche Transaktionsgebühren des Zahlungsanbieters, etwa Stripe, fallen separat an.</small>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="fragen">
+      <div class="shell faq-grid">
+        <div class="faq-heading reveal">
+          <p>Vielleicht fragen Sie sich gerade …</p>
+          <h2>Passt das auch<br><em>für uns?</em></h2>
+        </div>
+
+        <div class="faq-list reveal">
+          <details>
+            <summary><span>Für wen eignet sich der Ticket-Hub?</span><i aria-hidden="true"></i></summary>
+            <p>Vor allem für Vereine, Gastronomie, Kulturinitiativen, Regionen und Unternehmen mit wiederkehrenden Veranstaltungen oder Verkaufsaktionen. Besonders gut passt die Lösung, wenn keine komplexen Sitzplatzpläne benötigt werden.</p>
+          </details>
+          <details>
+            <summary><span>Brauchen wir dafür technisches Wissen?</span><i aria-hidden="true"></i></summary>
+            <p>Nein. Wir übernehmen die technische Einrichtung und gehen das erste Event gemeinsam durch. Danach können Sie Termine, Tickets, Texte, Bilder und Auswertungen selbst verwalten.</p>
+          </details>
+          <details>
+            <summary><span>Wohin fließen die Ticket-Einnahmen?</span><i aria-hidden="true"></i></summary>
+            <p>Die Zahlung läuft über Ihren eigenen Stripe-Account. Dadurch landen die Einnahmen direkt beim passenden Veranstalter und bleiben sauber getrennt.</p>
+          </details>
+          <details>
+            <summary><span>Welche Gebühren fallen an?</span><i aria-hidden="true"></i></summary>
+            <p>Es gibt eine einmalige Setup-Gebühr und fixe monatliche Kosten für Hosting, Monitoring, Wartung, Backups und Betreuung. Netzl Data Solutions verrechnet keine Ticketgebühr und keine Verkaufsprovision. Die normalen Stripe-Transaktionskosten werden separat von Stripe verrechnet.</p>
+          </details>
+          <details>
+            <summary><span>Können wir unsere eigene Domain und Marke verwenden?</span><i aria-hidden="true"></i></summary>
+            <p>Ja. Logo, Farben, Inhalte, E-Mail-Absender und Ticketgestaltung können angepasst werden. Auf Wunsch binden wir auch eine eigene Domain oder Subdomain an.</p>
+          </details>
+          <details>
+            <summary><span>Können wir mit einem Event beginnen?</span><i aria-hidden="true"></i></summary>
+            <p>Genau so ist es gedacht. Wir starten mit dem, was Sie aktuell brauchen. Weitere Events, Workshops, Produktaktionen oder zusätzliche Veranstalter können später dazukommen.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="kontakt">
+      <div class="shell contact-inner reveal">
+        <div>
+          <p class="eyebrow eyebrow-light"><span></span>Unverbindlich kennenlernen</p>
+          <h2>Passt der Ticket-Hub<br><em>zu Ihren Veranstaltungen?</em></h2>
+          <p>Wir zeigen Ihnen die Lösung gerne anhand eines konkreten Beispiels und sagen offen, was sinnvoll ist – und was nicht.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="button button-lime" href="mailto:kontakt@netzldatasolutions.at?subject=Interesse%20am%20Ticket-Hub">Ticket-Hub besprechen <span aria-hidden="true">↗</span></a>
+          <a href="tel:+4368181284922"><small>Oder kurz anrufen</small><strong>+43 681 812 849 22</strong></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-top">
+      <a class="brand footer-brand" href="#start" aria-label="Zurück zum Start">
+        <img src="/assets/img/logo.svg" alt="Netzl Data Solutions" width="143" height="45">
+        <span>Ticket-Hub</span>
+      </a>
+      <p>Eigene Events. Eigene Marke.<br>Keine Ticketgebühr.</p>
+      <a class="footer-mail" href="mailto:kontakt@netzldatasolutions.at">kontakt@netzldatasolutions.at <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="shell footer-bottom">
+      <p>© <span id="current-year">2026</span> Netzl Data Solutions</p>
+      <nav aria-label="Weitere Links">
+        <a href="https://www.netzldatasolutions.at/">Netzl Data Solutions</a>
+        <a href="https://www.netzldatasolutions.at/impressum.html">Impressum</a>
+        <a href="https://www.netzldatasolutions.at/datenschutz.html">Datenschutz</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
