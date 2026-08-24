@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="de" class="image-converter-document">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bild-Konverter | Netzl Data Solutions</title>
+  <meta name="description" content="Bilder direkt im Browser in JPEG, PNG, WebP, AVIF oder SVG umwandeln.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#14231f">
+  <link href="assets/img/favicon.svg" rel="icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/css/staging.css" rel="stylesheet">
+  <link href="assets/css/subpages.css" rel="stylesheet">
+  <link href="/assets/css/analytics.css" rel="stylesheet">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body class="subpage-body image-converter-page">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header is-scrolled" id="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Netzl Data Solutions – Startseite">
+        <img src="assets/img/logo.svg" alt="Netzl Data Solutions" width="143" height="45">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+        <span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
+        <a href="/#wandel">Leistungen &amp; Beispiele</a>
+        <a href="/#arbeitsweise">Arbeitsweise</a>
+        <a href="/#ueber-uns">Über uns</a>
+        <a href="/#ki">KI &amp; Agenten</a>
+        <a class="nav-cta" href="/#kontakt">Projekt besprechen <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="subpage-main" id="main">
+    <section class="subpage-hero tool-hero">
+      <div class="shell subpage-hero-grid tool-hero-simple">
+        <div class="reveal">
+          <h1>Bild-<em>Konverter.</em></h1>
+          <a class="subpage-backlink" href="/">← Zur Startseite</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-section">
+      <div class="shell tool-workspace">
+        <div class="tool-card reveal">
+          <div class="tool-card-head">
+            <h2>Bild auswählen</h2>
+          </div>
+
+          <label id="image-converter-drop-zone" class="drop-zone" for="image-converter-file">
+            <input id="image-converter-file" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/gif,image/bmp,image/svg+xml,image/heic,image/heif,.avif,.bmp,.gif,.heic,.heif,.jpg,.jpeg,.png,.svg,.tif,.tiff,.webp">
+            <span class="drop-zone-content">
+              <span class="drop-zone-icon" aria-hidden="true">
+                <img src="assets/icons/scan-search.svg" alt="" width="27" height="27">
+              </span>
+              <strong>Bilddatei auswählen</strong>
+              <span id="image-converter-selected-file">Noch keine Datei ausgewählt</span>
+            </span>
+          </label>
+
+          <div class="control-group">
+            <span id="image-output-format-label" class="field-label">Ausgabeformat</span>
+            <div class="format-choice-grid" role="radiogroup" aria-labelledby="image-output-format-label">
+              <label class="format-choice">
+                <input type="radio" name="image-output-format" value="image/jpeg" checked>
+                <span>JPEG</span>
+              </label>
+              <label class="format-choice">
+                <input type="radio" name="image-output-format" value="image/png">
+                <span>PNG</span>
+              </label>
+              <label class="format-choice">
+                <input type="radio" name="image-output-format" value="image/webp">
+                <span>WebP</span>
+              </label>
+              <label class="format-choice">
+                <input type="radio" name="image-output-format" value="image/avif">
+                <span>AVIF</span>
+              </label>
+              <label class="format-choice">
+                <input type="radio" name="image-output-format" value="image/svg+xml">
+                <span>SVG</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="control-grid control-group">
+            <div>
+              <label for="image-converter-max-edge">Maximale Kantenlänge</label>
+              <select id="image-converter-max-edge">
+                <option value="0" selected>Original</option>
+                <option value="2560">2560 px</option>
+                <option value="1920">1920 px</option>
+                <option value="1200">1200 px</option>
+                <option value="800">800 px</option>
+              </select>
+            </div>
+            <div>
+              <label for="image-converter-target-size">Zielgröße</label>
+              <div class="input-with-unit">
+                <input id="image-converter-target-size" type="number" min="10" max="40960" step="10" inputmode="decimal" placeholder="z. B. 500" aria-describedby="image-converter-target-help">
+                <span class="input-unit">KB</span>
+              </div>
+              <p id="image-converter-target-help" class="control-help">Optional. Qualität und Abmessungen werden bei Bedarf automatisch reduziert.</p>
+            </div>
+          </div>
+
+          <div class="control-grid control-group converter-secondary-controls">
+            <div>
+              <label for="image-converter-filename">Dateiname</label>
+              <input id="image-converter-filename" type="text" value="bild-konvertiert" placeholder="bild-konvertiert">
+            </div>
+            <div>
+              <label class="range-label" for="image-converter-quality">
+                <span>Qualität</span>
+                <output id="image-converter-quality-value" class="quality-value" for="image-converter-quality">88 %</output>
+              </label>
+              <input id="image-converter-quality" type="range" min="45" max="95" value="88">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div>
+              <label for="image-converter-background">Hintergrund</label>
+              <select id="image-converter-background">
+                <option value="transparent" selected>Transparent</option>
+                <option value="#ffffff">Weiß</option>
+                <option value="#14231f">Dunkel</option>
+                <option value="#70b646">Grün</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="tool-actions">
+            <button id="image-convert-button" class="btn btn-success" type="button" disabled>Konvertieren</button>
+            <a id="image-converter-download" class="btn btn-outline-success d-none" download>Herunterladen</a>
+          </div>
+
+          <div id="image-converter-message" class="alert d-none" role="alert"></div>
+        </div>
+
+        <div class="tool-card tool-card-dark reveal">
+          <div class="tool-card-head">
+            <h2>Vorschau</h2>
+          </div>
+
+          <ul class="summary-grid">
+            <li>
+              <span class="summary-label">Original</span>
+              <span id="image-converter-summary-original" class="summary-value">-</span>
+            </li>
+            <li>
+              <span class="summary-label">Ausgabe</span>
+              <span id="image-converter-summary-output" class="summary-value">-</span>
+            </li>
+            <li>
+              <span class="summary-label">Datei</span>
+              <span id="image-converter-summary-file" class="summary-value">-</span>
+            </li>
+            <li>
+              <span class="summary-label">Abmessungen</span>
+              <span id="image-converter-summary-dimensions" class="summary-value">-</span>
+            </li>
+          </ul>
+
+          <div class="image-preview-grid">
+            <div class="image-preview-panel">
+              <h3>Original</h3>
+              <div class="image-preview">
+                <img id="image-converter-original-preview" class="d-none" alt="Originalbild Vorschau">
+                <span id="image-converter-original-placeholder" class="text-muted">Bild auswählen</span>
+              </div>
+            </div>
+            <div class="image-preview-panel">
+              <h3>Konvertiert</h3>
+              <div class="image-preview">
+                <img id="image-converter-output-preview" class="d-none" alt="Konvertiertes Bild Vorschau">
+                <span id="image-converter-output-placeholder" class="text-muted">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-top">
+      <a class="brand footer-brand" href="/" aria-label="Zur Startseite">
+        <img src="assets/img/logo.svg" alt="Netzl Data Solutions" width="143" height="45">
+      </a>
+      <p>Daten, die Sinn machen.<br>Mehr Zeit für's Wesentliche.</p>
+      <a class="footer-mail" href="mailto:kontakt@netzldatasolutions.at">kontakt@netzldatasolutions.at <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="shell footer-bottom">
+      <p>© <span id="current-year">2026</span> Netzl Data Solutions</p>
+      <nav aria-label="Weitere Links">
+        <a href="/qr-code-generator">QR-Code Generator</a>
+        <a href="/csv-konverter">CSV-Konverter</a>
+        <a href="/bild-komprimator">Bild-Komprimator</a>
+        <a href="/bild-konverter" aria-current="page">Bild-Konverter</a>
+        <a href="/impressum">Impressum</a>
+        <a href="/datenschutz">Datenschutz</a>
+        <button class="privacy-settings" type="button" data-analytics-settings>Datenschutz-Einstellungen</button>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/analytics.js" defer></script>
+  <script src="assets/js/staging.js" defer></script>
+  <script src="assets/vendor/heic2any/heic2any.min.js" defer></script>
+  <script src="assets/js/image-converter.js" defer></script>
+</body>
+</html>

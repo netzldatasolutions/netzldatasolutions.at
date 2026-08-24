@@ -2013,17 +2013,26 @@ input[type="range"]::-moz-range-thumb {
     transform: translateY(-4px) rotate(-45deg);
   }
 
+  .nav-open .site-header {
+    z-index: 11000;
+  }
+
   .site-nav {
     position: fixed;
     inset: 0;
+    z-index: 4;
     display: flex;
-    padding: 112px 28px 38px;
+    min-height: 100dvh;
+    overflow-y: auto;
+    padding: 112px 28px max(38px, calc(28px + env(safe-area-inset-bottom)));
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     visibility: hidden;
     opacity: 0;
-    background: var(--paper);
+    color: var(--ink);
+    background: #f4f3ed;
+    box-shadow: inset 0 1px 0 var(--line);
     transform: translateY(-16px);
     transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
   }
@@ -2032,6 +2041,10 @@ input[type="range"]::-moz-range-thumb {
     visibility: visible;
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .nav-open .funding-chat-widget {
+    display: none;
   }
 
   .site-nav > a {
@@ -5662,4 +5675,687 @@ input[type="range"]::-moz-range-thumb {
 @keyframes submitArrowPulse {
   0%, 100% { opacity: 0.35; transform: translateX(0); }
   50% { opacity: 1; transform: translateX(3px); }
+}
+
+
+/* Staging KI-Fördercheck */
+.funding-chat-widget {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 1600;
+  display: grid;
+  justify-items: end;
+  gap: 12px;
+  font-family: var(--font);
+}
+
+.funding-chat-toggle {
+  display: grid;
+  min-width: 178px;
+  padding: 14px 18px;
+  border: 1px solid rgba(20, 35, 31, 0.18);
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--lime);
+  box-shadow: 0 18px 50px rgba(20, 35, 31, 0.22);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.funding-chat-toggle:hover {
+  background: var(--lime-bright);
+  box-shadow: 0 22px 58px rgba(20, 35, 31, 0.28);
+  transform: translateY(-2px);
+}
+
+.funding-chat-widget.is-open .funding-chat-toggle {
+  display: none;
+}
+
+.funding-chat-toggle span {
+  font-size: 0.84rem;
+  font-weight: 850;
+  line-height: 1.1;
+}
+
+.funding-chat-toggle small {
+  margin-top: 2px;
+  color: rgba(20, 35, 31, 0.68);
+  font-size: 0.66rem;
+  font-weight: 800;
+}
+
+.funding-chat-widget.is-loading .funding-chat-toggle {
+  background: var(--lime-bright);
+}
+
+.funding-chat-widget.is-loading .funding-chat-toggle::after {
+  width: 100%;
+  height: 3px;
+  margin-top: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(20, 35, 31, 0.14);
+  content: "";
+  background-image: linear-gradient(90deg, transparent, rgba(20, 35, 31, 0.42), transparent);
+  background-size: 55% 100%;
+  background-repeat: no-repeat;
+  animation: fundingChatLoading 1.1s ease-in-out infinite;
+}
+
+.funding-chat-panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: min(440px, calc(100vw - 32px));
+  height: min(720px, calc(100dvh - 106px));
+  overflow: hidden;
+  border: 1px solid rgba(20, 35, 31, 0.16);
+  border-radius: 24px;
+  background: var(--white);
+  box-shadow: 0 26px 90px rgba(20, 35, 31, 0.26);
+}
+
+.funding-chat-panel[hidden] {
+  display: none;
+}
+
+.funding-chat-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 18px 15px;
+  color: var(--white);
+  background: var(--ink);
+}
+
+.funding-chat-header strong,
+.funding-chat-header span {
+  display: block;
+}
+
+.funding-chat-header strong {
+  font-size: 1rem;
+  font-weight: 850;
+}
+
+.funding-chat-header span {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.funding-chat-header button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  color: var(--white);
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.funding-chat-feed {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 16px 34px;
+  scroll-padding-bottom: 34px;
+  background: var(--paper);
+}
+
+.funding-chat-message {
+  display: grid;
+  gap: 7px;
+  width: min(100%, 360px);
+  max-width: 100%;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--white);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.funding-chat-message.user {
+  justify-self: end;
+  background: #f8ffe9;
+  border-color: rgba(112, 182, 70, 0.28);
+}
+
+.funding-chat-message.pending {
+  color: var(--muted);
+}
+
+.funding-chat-message.pending p::after {
+  display: inline-block;
+  width: 1.2em;
+  content: "…";
+  animation: fundingChatDots 1s steps(3, end) infinite;
+}
+
+.funding-chat-message strong,
+.funding-chat-message h4 {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.funding-chat-message p,
+.funding-chat-message ul,
+.funding-chat-message ol {
+  max-width: 100%;
+  margin: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.funding-chat-message a {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.funding-chat-message ul,
+.funding-chat-message ol {
+  display: grid;
+  gap: 7px;
+  padding-left: 18px;
+}
+
+.funding-chat-checklist {
+  gap: 5px !important;
+}
+
+.funding-chat-message small {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.funding-chat-matches {
+  padding-left: 0 !important;
+  list-style: none;
+}
+
+.funding-chat-matches li {
+  display: grid;
+  gap: 5px;
+  padding-left: 10px;
+  border-left: 3px solid var(--brand);
+}
+
+.funding-chat-matches span {
+  width: fit-content;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(167, 223, 97, 0.38);
+  font-size: 0.66rem;
+  font-weight: 850;
+}
+
+.funding-chat-matches a,
+.funding-chat-sources a {
+  min-width: 0;
+  color: #2c6f37;
+  font-weight: 850;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.funding-chat-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+}
+
+.funding-chat-sources span {
+  width: 100%;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.funding-chat-form {
+  display: grid;
+  gap: 10px;
+  padding: 15px;
+  border-top: 1px solid var(--line);
+  background: var(--white);
+}
+
+.funding-chat-form label {
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+
+.funding-chat-form textarea {
+  width: 100%;
+  min-height: 104px;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid rgba(20, 35, 31, 0.2);
+  border-radius: 14px;
+  background: var(--paper);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.funding-chat-widget.has-started .funding-chat-form textarea {
+  min-height: 58px;
+  max-height: 92px;
+}
+
+.funding-chat-form .button {
+  width: 100%;
+}
+
+.funding-chat-status {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+@media (max-width: 640px) {
+  .funding-chat-widget {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(22px, calc(22px + env(safe-area-inset-bottom)));
+    left: max(12px, env(safe-area-inset-left));
+    z-index: 10050;
+    justify-items: stretch;
+  }
+
+  .nds-consent-dialog:not([hidden]) ~ .funding-chat-widget {
+    bottom: max(132px, calc(132px + env(safe-area-inset-bottom)));
+  }
+
+  .funding-chat-toggle {
+    justify-self: end;
+    min-width: 156px;
+    max-width: min(100%, 200px);
+    padding: 12px 16px;
+  }
+
+  .funding-chat-panel {
+    width: 100%;
+    height: min(590px, calc(100dvh - 76px));
+    border-radius: 18px;
+  }
+
+  .funding-chat-header {
+    padding: 14px 14px 12px;
+  }
+
+  .funding-chat-feed {
+    min-height: 0;
+    gap: 10px;
+    padding: 12px 12px 18px;
+  }
+
+  .funding-chat-message {
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    line-height: 1.48;
+  }
+
+  .funding-chat-form {
+    gap: 8px;
+    padding: 11px 12px 12px;
+  }
+
+  .funding-chat-form textarea,
+  .funding-chat-widget.has-started .funding-chat-form textarea {
+    height: 58px;
+    min-height: 58px;
+    max-height: 58px;
+    resize: none;
+    overflow-y: auto;
+    padding: 8px 10px;
+    border-radius: 12px;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+}
+
+@keyframes fundingChatLoading {
+  0% { background-position: -80% 0; }
+  100% { background-position: 180% 0; }
+}
+
+@keyframes fundingChatDots {
+  0% { content: ""; }
+  33% { content: "."; }
+  66% { content: ".."; }
+  100% { content: "..."; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .funding-chat-toggle,
+  .funding-chat-toggle:hover {
+    transform: none;
+  }
+
+  .funding-chat-widget.is-loading .funding-chat-toggle::after,
+  .funding-chat-message.pending p::after {
+    animation: none;
+  }
+}
+
+/* Mobile clarity pass: keep the phone view short and direct. */
+.mobile-hero-proof,
+.mobile-story-intro,
+.mobile-story-cards,
+.ai-mobile-summary {
+  display: none;
+}
+
+@media (max-width: 620px) {
+  .hero {
+    min-height: auto;
+    padding: 108px 0 60px;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .hero-backdrop {
+    top: -320px;
+    right: -360px;
+    opacity: 0.72;
+  }
+
+  .hero-grid {
+    min-height: 0;
+    gap: 0;
+  }
+
+  .hero h1 {
+    max-width: 9ch;
+    font-size: 3.65rem;
+    letter-spacing: 0;
+    line-height: 0.94;
+  }
+
+  .hero-lead {
+    max-width: 22rem;
+    margin-top: 22px;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .hero-actions {
+    margin-top: 26px;
+  }
+
+  .hero-actions .text-link {
+    display: none;
+  }
+
+  .workflow-visual {
+    display: none;
+  }
+
+  .mobile-hero-proof {
+    display: grid;
+    gap: 5px;
+    margin-top: 22px;
+    padding: 15px 16px;
+    border: 1px solid rgba(20, 35, 31, 0.12);
+    border-left: 4px solid var(--brand);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.62);
+    box-shadow: 0 16px 42px rgba(20, 35, 31, 0.08);
+  }
+
+  .mobile-hero-proof span {
+    color: var(--brand);
+    font-size: 0.62rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .mobile-hero-proof strong {
+    font-size: 0.96rem;
+    line-height: 1.35;
+  }
+
+  .mobile-hero-proof p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  .js .combined-story,
+  .combined-story {
+    height: auto;
+    padding: 70px 0 62px;
+  }
+
+  .combined-story .sequence-shell {
+    height: auto;
+  }
+
+  .js .combined-story .sequence-stage,
+  .combined-story .sequence-stage {
+    display: none;
+  }
+
+  .mobile-story-intro {
+    display: grid;
+    margin-bottom: 24px;
+  }
+
+  .mobile-story-intro h2 {
+    max-width: 11ch;
+    margin: 0;
+    font-size: 2.65rem;
+    font-weight: 650;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
+  .mobile-story-intro h2 em {
+    color: var(--brand);
+    font-style: normal;
+  }
+
+  .mobile-story-cards {
+    display: grid;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-story-cards article {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 4px 12px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .mobile-story-cards span {
+    grid-row: 1 / 3;
+    color: var(--brand);
+    font-size: 0.66rem;
+    font-weight: 850;
+  }
+
+  .mobile-story-cards h3 {
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 0;
+    line-height: 1.28;
+  }
+
+  .mobile-story-cards p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .scope-strip {
+    padding: 42px 0;
+  }
+
+  .scope-inner {
+    gap: 20px;
+  }
+
+  .scope-inner h2 {
+    max-width: 12ch;
+    font-size: 2.2rem;
+    letter-spacing: 0;
+    line-height: 1.03;
+  }
+
+  .scope-inner ul {
+    flex-wrap: nowrap;
+    gap: 6px;
+    margin-inline: -14px;
+    overflow-x: auto;
+    padding-inline: 14px;
+    scroll-snap-type: x proximity;
+  }
+
+  .scope-inner li {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .effort {
+    display: none;
+  }
+
+  .product-strip {
+    padding: 40px 0;
+  }
+
+  .product-strip h2 {
+    font-size: 1.72rem;
+    letter-spacing: 0;
+    line-height: 1.16;
+  }
+
+  .product-copy > p:not(.eyebrow) {
+    display: none;
+  }
+
+  .product-benefits {
+    flex-direction: row;
+    gap: 7px;
+    margin-top: 18px;
+  }
+
+  .product-benefits span {
+    padding: 7px 9px;
+    font-size: 0.58rem;
+  }
+
+  .collaboration {
+    padding: 58px 0;
+  }
+
+  .ai-practice {
+    padding: 64px 0;
+  }
+
+  .ai-grid {
+    gap: 24px;
+  }
+
+  .ai-copy h2 {
+    max-width: 10ch;
+    font-size: 2.75rem;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
+  .ai-lead,
+  .ai-rules,
+  .ai-agent-visual {
+    display: none;
+  }
+
+  .ai-mobile-summary {
+    display: grid;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .ai-mobile-summary p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .ai-mobile-summary ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ai-mobile-summary li {
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.54);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .faq-grid .section-heading h2 {
+    font-size: 2.8rem;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
+  .funding-chat-toggle {
+    min-width: auto;
+    max-width: 164px;
+    padding: 10px 13px;
+  }
+
+  .funding-chat-toggle span {
+    font-size: 0.74rem;
+  }
+
+  .funding-chat-toggle small {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero h1 {
+    font-size: 3.2rem;
+  }
+
+  .mobile-story-intro h2,
+  .ai-copy h2,
+  .faq-grid .section-heading h2 {
+    font-size: 2.35rem;
+  }
 }

@@ -225,8 +225,8 @@
   };
 
   const privacyUrl = location.hostname === "tickets.netzldatasolutions.at"
-    ? "https://www.netzldatasolutions.at/datenschutz.html#webanalyse"
-    : "/datenschutz.html#webanalyse";
+    ? "https://www.netzldatasolutions.at/datenschutz#webanalyse"
+    : "/datenschutz#webanalyse";
 
   const ensureConsentDialog = () => {
     let dialog = document.querySelector("#nds-consent-dialog");

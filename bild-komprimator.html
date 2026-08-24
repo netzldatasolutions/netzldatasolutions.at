@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="de" class="image-compressor-document">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bild-Komprimator | Netzl Data Solutions</title>
+  <meta name="description" content="Bilder direkt im Browser verkleinern und als JPEG, WebP, PNG oder SVG herunterladen.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#14231f">
+  <link href="assets/img/favicon.svg" rel="icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/css/staging.css" rel="stylesheet">
+  <link href="assets/css/subpages.css" rel="stylesheet">
+  <link href="/assets/css/analytics.css" rel="stylesheet">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body class="subpage-body image-compressor-page">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header is-scrolled" id="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Netzl Data Solutions – Startseite">
+        <img src="assets/img/logo.svg" alt="Netzl Data Solutions" width="143" height="45">
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+        <span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
+        <a href="/#wandel">Leistungen &amp; Beispiele</a>
+        <a href="/#arbeitsweise">Arbeitsweise</a>
+        <a href="/#ueber-uns">Über uns</a>
+        <a href="/#ki">KI &amp; Agenten</a>
+        <a class="nav-cta" href="/#kontakt">Projekt besprechen <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="subpage-main" id="main">
+    <section class="subpage-hero tool-hero">
+      <div class="shell subpage-hero-grid tool-hero-simple">
+        <div class="reveal">
+          <h1>Bild-<em>Komprimator.</em></h1>
+          <a class="subpage-backlink" href="/">← Zur Startseite</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-section">
+      <div class="shell tool-workspace">
+        <div class="tool-card reveal">
+          <div class="tool-card-head">
+            <h2>Bild auswählen</h2>
+          </div>
+
+          <label id="image-drop-zone" class="drop-zone" for="image-file">
+            <input id="image-file" type="file" accept="image/jpeg,image/png,image/webp,image/svg+xml,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.svg,.heic,.heif">
+            <span class="drop-zone-content">
+              <span class="drop-zone-icon" aria-hidden="true">
+                <img src="assets/icons/scan-search.svg" alt="" width="27" height="27">
+              </span>
+              <strong>Bilddatei auswählen</strong>
+              <span id="selected-file-name">Noch keine Datei ausgewählt</span>
+            </span>
+          </label>
+
+          <div class="control-group">
+            <label for="image-max-edge">Maximale Kantenlänge</label>
+            <select id="image-max-edge">
+              <option value="1200" selected>1200 px</option>
+              <option value="1600">1600 px</option>
+              <option value="2000">2000 px</option>
+              <option value="2560">2560 px</option>
+              <option value="0">Originalgröße</option>
+            </select>
+            <p class="control-help">Das Seitenverhältnis bleibt erhalten.</p>
+          </div>
+
+          <div class="control-grid control-group">
+            <div>
+              <label for="image-format">Ausgabeformat</label>
+              <select id="image-format">
+                <option value="image/jpeg" selected>JPEG</option>
+                <option value="image/webp">WebP</option>
+                <option value="image/png">PNG</option>
+                <option value="image/svg+xml" disabled>SVG</option>
+              </select>
+            </div>
+            <div>
+              <label for="image-filename">Dateiname</label>
+              <input id="image-filename" type="text" value="bild-komprimiert" placeholder="bild-komprimiert">
+            </div>
+            <p id="format-hint" class="control-help control-help-wide">JPEG eignet sich meist gut für Fotos. Transparente Bereiche werden weiß.</p>
+          </div>
+
+          <div class="control-group">
+            <label class="range-label" for="image-quality">
+              <span>Qualität</span>
+              <output id="image-quality-value" class="quality-value" for="image-quality">82 %</output>
+            </label>
+            <input id="image-quality" type="range" min="45" max="95" value="82">
+          </div>
+
+          <div class="tool-actions">
+            <button id="compress-button" class="btn btn-success" type="button" disabled>Bild komprimieren</button>
+            <a id="download-button" class="btn btn-outline-success d-none" download>Herunterladen</a>
+          </div>
+
+          <div id="image-message" class="alert d-none" role="alert"></div>
+        </div>
+
+        <div class="tool-card tool-card-dark reveal">
+          <div class="tool-card-head">
+            <h2>Ergebnis</h2>
+          </div>
+
+          <ul class="summary-grid">
+            <li>
+              <span class="summary-label">Original</span>
+              <span id="summary-original-size" class="summary-value">-</span>
+            </li>
+            <li>
+              <span class="summary-label">Ergebnis</span>
+              <span id="summary-output-size" class="summary-value">-</span>
+            </li>
+            <li>
+              <span class="summary-label">Ersparnis</span>
+              <span id="summary-savings" class="summary-value">-</span>
+            </li>
+            <li>
+              <span class="summary-label">Abmessungen</span>
+              <span id="summary-dimensions" class="summary-value">-</span>
+            </li>
+          </ul>
+
+          <div class="size-meter" aria-hidden="true">
+            <span id="size-meter-fill" class="size-meter-fill"></span>
+          </div>
+
+          <p class="preview-label">Bildvorschau</p>
+          <div class="image-preview-grid">
+            <div class="image-preview-panel">
+              <h3>Original</h3>
+              <div class="image-preview">
+                <img id="original-preview" class="d-none" alt="Originalbild Vorschau">
+                <span id="original-placeholder" class="text-muted">Bild auswählen</span>
+              </div>
+            </div>
+            <div class="image-preview-panel">
+              <h3>Komprimiert</h3>
+              <div class="image-preview">
+                <img id="output-preview" class="d-none" alt="Komprimiertes Bild Vorschau">
+                <span id="output-placeholder" class="text-muted">Nach der Verarbeitung erscheint hier das Ergebnis.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-top">
+      <a class="brand footer-brand" href="/" aria-label="Zur Startseite">
+        <img src="assets/img/logo.svg" alt="Netzl Data Solutions" width="143" height="45">
+      </a>
+      <p>Daten, die Sinn machen.<br>Mehr Zeit für's Wesentliche.</p>
+      <a class="footer-mail" href="mailto:kontakt@netzldatasolutions.at">kontakt@netzldatasolutions.at <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="shell footer-bottom">
+      <p>© <span id="current-year">2026</span> Netzl Data Solutions</p>
+      <nav aria-label="Weitere Links">
+        <a href="/qr-code-generator">QR-Code Generator</a>
+        <a href="/csv-konverter">CSV-Konverter</a>
+        <a href="/bild-komprimator" aria-current="page">Bild-Komprimator</a>
+        <a href="/bild-konverter">Bild-Konverter</a>
+        <a href="/impressum">Impressum</a>
+        <a href="/datenschutz">Datenschutz</a>
+        <button class="privacy-settings" type="button" data-analytics-settings>Datenschutz-Einstellungen</button>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="/assets/js/analytics.js" defer></script>
+  <script src="assets/js/staging.js" defer></script>
+  <script src="assets/vendor/heic2any/heic2any.min.js" defer></script>
+  <script src="assets/js/image-compressor.js" defer></script>
+</body>
+</html>

@@ -332,6 +332,435 @@
     });
   }
 
+  const fundingChatHosts = new Set([
+    "staging.netzldatasolutions.at",
+    "netzldatasolutions.at",
+    "www.netzldatasolutions.at"
+  ]);
+  const shouldShowFundingChat = fundingChatHosts.has(window.location.hostname);
+
+  if (shouldShowFundingChat) {
+    const fundingStorageKey = "nds_funding_chat_history";
+    const maxFundingHistory = 8;
+
+    const readFundingHistory = () => {
+      try {
+        const parsed = JSON.parse(window.localStorage.getItem(fundingStorageKey) || "[]");
+        return Array.isArray(parsed) ? parsed.slice(-maxFundingHistory) : [];
+      } catch {
+        return [];
+      }
+    };
+
+    const writeFundingHistory = (history) => {
+      try {
+        window.localStorage.setItem(fundingStorageKey, JSON.stringify(history.slice(-maxFundingHistory)));
+      } catch {
+        // Browser storage can be unavailable in private modes. The chat still works without history.
+      }
+    };
+
+    const escapeChatHtml = (value) => String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+    const markdownEscapePattern = /\\([\\`*_{}\[\]()#+\-.!>])/gu;
+
+    const sanitizeFundingUrl = (value) => {
+      try {
+        const parsed = new URL(String(value || "").trim());
+        if (!["http:", "https:"].includes(parsed.protocol)) return "";
+        return parsed.toString();
+      } catch {
+        return "";
+      }
+    };
+
+    const formatFundingInlineText = (value) => {
+      const placeholders = [];
+      const addPlaceholder = (html) => {
+        const token = `__NDS_LINK_${placeholders.length}__`;
+        placeholders.push(html);
+        return token;
+      };
+
+      let text = String(value || "")
+        .replace(markdownEscapePattern, "$1")
+        .replace(/\[([^\]]+)\]\(\[?(https?:\/\/[^\]\s)]+)\]?\((https?:\/\/[^)\s]+)\)\)/gu, "[$1]($3)")
+        .replace(/\[([^\]]+)\]\(\[?(https?:\/\/[^\]\s)]+)\]?\)/gu, "[$1]($2)");
+
+      text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/gu, (_match, label, url) => {
+        const href = sanitizeFundingUrl(url);
+        if (!href) return label;
+        return addPlaceholder(`<a href="${escapeChatHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeChatHtml(label)}</a>`);
+      });
+
+      text = escapeChatHtml(text)
+        .replace(/\*\*([^*]+)\*\*/gu, "<strong>$1</strong>")
+        .replace(/https?:\/\/[^\s<>()]+/gu, (url) => {
+          const href = sanitizeFundingUrl(url.replace(/[),.;:]+$/u, ""));
+          if (!href) return url;
+          return `<a href="${escapeChatHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeChatHtml(href)}</a>`;
+        });
+
+      return text.replace(/__NDS_LINK_(\d+)__/gu, (_match, index) => placeholders[Number(index)] || "");
+    };
+    const formatFundingAnswerText = (value) => {
+      const lines = String(value || "")
+        .replace(/\r\n?/gu, "\n")
+        .split("\n")
+        .map((line) => line.trim());
+      const blocks = [];
+      let paragraph = [];
+      let list = [];
+      let listType = "ul";
+
+      const flushParagraph = () => {
+        if (!paragraph.length) return;
+        blocks.push(`<p>${formatFundingInlineText(paragraph.join(" "))}</p>`);
+        paragraph = [];
+      };
+
+      const flushList = () => {
+        if (!list.length) return;
+        blocks.push(`<${listType}>${list.map((item) => `<li>${formatFundingInlineText(item)}</li>`).join("")}</${listType}>`);
+        list = [];
+      };
+
+      for (const line of lines) {
+        if (!line) {
+          flushParagraph();
+          flushList();
+          continue;
+        }
+
+        const bullet = line.match(/^(?:[-*•])\s+(.+)$/u);
+        const numbered = line.match(/^\d+[.)]\s+(.+)$/u);
+        const heading = line.match(/^#{2,4}\s+(.+)$/u)
+          || line.match(/^\*\*(.+?)\*\*:?\s*$/u)
+          || line.match(/^(Kurzzusammenfassung|Möglichkeiten|Einschränkungen|Was Netzl Data Solutions für Sie tun kann|Quellen):?$/u);
+        if (heading) {
+          flushParagraph();
+          flushList();
+          blocks.push(`<h4>${formatFundingInlineText(heading[1])}</h4>`);
+          continue;
+        }
+
+        if (bullet || numbered) {
+          flushParagraph();
+          const nextType = numbered ? "ol" : "ul";
+          if (list.length && listType !== nextType) flushList();
+          listType = nextType;
+          list.push((bullet || numbered)[1]);
+          continue;
+        }
+
+        flushList();
+        paragraph.push(line);
+      }
+
+      flushParagraph();
+      flushList();
+      return blocks.join("") || "<p>Ich konnte dazu gerade keine verwertbare Antwort erzeugen.</p>";
+    };
+
+    const renderFundingList = (title, items) => {
+      if (!Array.isArray(items) || !items.length) return "";
+      return `<h4>${escapeChatHtml(title)}</h4><ul>${items
+        .map((item) => `<li>${formatFundingInlineText(item)}</li>`)
+        .join("")}</ul>`;
+    };
+
+    const renderFundingMatches = (matches) => {
+      if (!Array.isArray(matches) || !matches.length) return "";
+      return `<h4>Passende Förderungen</h4><ol class="funding-chat-matches">${matches
+        .map((match) => {
+          const source = match.source_url
+            ? `<a href="${escapeChatHtml(match.source_url)}" target="_blank" rel="noopener noreferrer">Quelle öffnen</a>`
+            : "";
+          return `<li><strong>${escapeChatHtml(match.program_name || "Förderung")}</strong><span>${escapeChatHtml(match.fit || "prüfen")}</span><p>${escapeChatHtml(match.reason || "")}</p>${match.risks ? `<small>Risiko: ${escapeChatHtml(match.risks)}</small>` : ""}${source}</li>`;
+        })
+        .join("")}</ol>`;
+    };
+
+    const renderFundingSources = (sources) => {
+      if (!Array.isArray(sources) || !sources.length) return "";
+      return `<div class="funding-chat-sources"><span>Quellen</span>${sources
+        .slice(0, 6)
+        .map((source) => `<a href="${escapeChatHtml(source.url || "#")}" target="_blank" rel="noopener noreferrer">${escapeChatHtml(source.title || source.url || "Quelle")}</a>`)
+        .join("")}</div>`;
+    };
+
+    const fundingChecklistItems = [
+      "Bundesland oder Betriebsstätte",
+      "Unternehmensgröße, zum Beispiel EPU, KMU, Startup oder Mitarbeiterzahl",
+      "Branche",
+      "Vorhaben und Ziel",
+      "Projektvolumen oder Budget",
+      "Startzeitpunkt und ob schon begonnen wurde"
+    ];
+
+    const normalizeFundingText = (value) => String(value || "")
+      .normalize("NFKC")
+      .toLowerCase();
+
+    const hasLabeledFundingValue = (text, labels) => labels.some((label) =>
+      new RegExp(`${label}\\s*[:=-][ \\t]*[^\\n,;]{2,}`, "u").test(text)
+    );
+
+    const containsFundingTerm = (text, terms) => terms.some((term) => text.includes(term));
+
+    const fundingFactChecks = [
+      {
+        question: "In welchem Bundesland liegt Ihr Unternehmenssitz oder die Betriebsstätte?",
+        test: (text) => containsFundingTerm(text, [
+          "burgenland", "kärnten", "kaernten", "niederösterreich", "niederoesterreich", "nö", "noe",
+          "oberösterreich", "oberoesterreich", "oö", "ooe", "salzburg", "steiermark", "tirol",
+          "vorarlberg", "wien", "österreichweit", "oesterreichweit"
+        ]) || hasLabeledFundingValue(text, ["bundesland", "betriebsstätte", "betriebsstaette", "standort", "sitz"])
+      },
+      {
+        question: "Wie groß ist das Unternehmen, zum Beispiel EPU, KMU, Startup oder Mitarbeiterzahl?",
+        test: (text) => /(?:^|[^a-zäöüß])(?:epu|kmu|startup|verein|vereinigung|kleinstunternehmen|kleinunternehmen|mittelunternehmen|großunternehmen|grossunternehmen)(?:[^a-zäöüß]|$)/u.test(text)
+          || /\d+\s*(?:ma|mitarbeiter|mitarbeiterinnen|beschäftigte|beschaeftigte|fte)/u.test(text)
+          || /\d+\s*(?:mitglieder|mitgliedern|vereinsmitglieder)/u.test(text)
+          || /verein\s+mit\s+(?:rund|ca\.?|circa|etwa)?\s*\d+/u.test(text)
+          || hasLabeledFundingValue(text, ["größe", "groesse", "unternehmensgröße", "unternehmensgroesse", "mitarbeiter", "team", "mitglieder"])
+      },
+      {
+        question: "In welcher Branche arbeiten Sie?",
+        test: (text) => containsFundingTerm(text, [
+          "handel", "gastronomie", "tourismus", "hotel", "produktion", "industrie", "handwerk",
+          "bau", "dienstleistung", "beratung", "agentur", "software", "edv", "gesundheit", "ordination",
+          "kultur", "verein", "landwirtschaft", "logistik", "energie", "immobilien", "bäckerei", "baeckerei"
+        ]) || hasLabeledFundingValue(text, ["branche", "geschäftsfeld", "geschaeftsfeld"])
+      },
+      {
+        question: "Was soll konkret umgesetzt werden und welches Ziel hat das Projekt?",
+        test: (text) => containsFundingTerm(text, [
+          "digital", "ki", "automatis", "dashboard", "software", "daten",
+          "crm", "erp", "shop", "website", "prozess", "investition", "maschine", "weiterbildung",
+          "energie", "monitoring", "report"
+        ]) || hasLabeledFundingValue(text, ["vorhaben", "ziel", "projekt"])
+      },
+      {
+        question: "Wie hoch ist das geschätzte Projektvolumen oder Budget?",
+        test: (text) => /(?:budget|projektvolumen|volumen|kostenrahmen|kosten|investition)\s*[:=-][ 	]*(?:ca\.?\s*)?(?:\d|offen|unklar|noch nicht bekannt)/u.test(text)
+          || /(?:budget|projektvolumen|volumen|kostenrahmen|kosten|investition)\D{0,24}\d{3,}/u.test(text)
+          || /\d{3,}\D{0,24}(?:budget|projektvolumen|volumen|kostenrahmen|kosten|investition)/u.test(text)
+          || /\d{1,3}(?:[.\s]\d{3})*(?:,\d+)?\s*(?:€|eur|euro)/u.test(text)
+          || /\d+\s*(?:k|tsd\.?|tausend)\s*(?:€|eur|euro)?/u.test(text)
+      },
+      {
+        question: "Wann soll das Projekt starten und wurde bereits begonnen oder beauftragt?",
+        test: (text) => /(?:start|beginn|projektstart|umsetzung|status)\s*[:=-][ \t]*[^,\n;]{3,}/u.test(text)
+          || containsFundingTerm(text, [
+            "noch nicht begonnen", "nicht begonnen", "bereits begonnen", "schon begonnen", "beauftragt",
+            "angebot liegt vor", "geplant", "läuft", "laeuft", "quartal", "jänner", "jaenner", "februar",
+            "märz", "maerz", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "dezember"
+          ])
+          || /(?:20\d{2}|q[1-4]|\d+\s*(?:wochen|monate|monat))/u.test(text)
+      }
+    ];
+
+    const getMissingFundingFacts = (message, history = []) => {
+      const userHistory = history
+        .filter((entry) => entry?.role === "user")
+        .map((entry) => entry.content);
+      const text = normalizeFundingText([...userHistory, message].join("\n"));
+      return fundingFactChecks.filter((fact) => !fact.test(text));
+    };
+
+    const renderFundingChecklist = () => `<ul class="funding-chat-checklist">${fundingChecklistItems
+      .map((item) => `<li>${escapeChatHtml(item)}</li>`)
+      .join("")}</ul>`;
+
+    const renderFundingMissingInfo = (missingFacts) => [
+      "<strong>Fördercheck</strong>",
+      "<p>Für eine gezielte Suche fehlen noch ein paar Eckdaten. Bitte ergänzen Sie kurz:</p>",
+      renderFundingList("Bitte ergänzen", missingFacts.map((fact) => fact.question)),
+      "<small>Danach starte ich die Suche in den österreichischen Förderquellen.</small>"
+    ].join("");
+
+    const widget = document.createElement("aside");
+    widget.className = "funding-chat-widget";
+    widget.setAttribute("aria-label", "KI-Fördercheck für Österreich");
+    widget.innerHTML = `
+      <button class="funding-chat-toggle" type="button" aria-expanded="false" aria-controls="funding-chat-panel">
+        <span>KI-Fördercheck</span>
+        <small>Österreich</small>
+      </button>
+      <section class="funding-chat-panel" id="funding-chat-panel" hidden>
+        <header class="funding-chat-header">
+          <div>
+            <strong>Förderungen prüfen</strong>
+            <span>Erst Eckdaten, dann aktuelle Quellen</span>
+          </div>
+          <button type="button" aria-label="Fördercheck schließen" data-funding-close>×</button>
+        </header>
+        <div class="funding-chat-feed" data-funding-feed aria-live="polite">
+          <article class="funding-chat-message assistant">
+            <strong>Fördercheck</strong>
+            <p>Bitte nennen Sie möglichst gleich diese Eckdaten. Dann wird die Suche gezielter und die Antwort bleibt kurz.</p>
+            ${renderFundingChecklist()}
+            <small>Keine verbindliche Förderzusage. Bitte keine sensiblen Daten eingeben.</small>
+          </article>
+        </div>
+        <form class="funding-chat-form" data-funding-form>
+          <label for="funding-chat-input">Ihre Eckdaten und Förderfrage</label>
+          <textarea id="funding-chat-input" name="message" rows="2" required placeholder="Kurz: Bundesland, Größe, Branche, Vorhaben, Budget, Start"></textarea>
+          <button class="button button-lime" type="submit"><span>Förderungen prüfen</span></button>
+          <p class="funding-chat-status" data-funding-status role="status" aria-live="polite" hidden></p>
+        </form>
+      </section>
+    `;
+    document.body.append(widget);
+
+    const toggle = widget.querySelector(".funding-chat-toggle");
+    const panel = widget.querySelector(".funding-chat-panel");
+    const closeButton = widget.querySelector("[data-funding-close]");
+    const form = widget.querySelector("[data-funding-form]");
+    const input = widget.querySelector("#funding-chat-input");
+    const feed = widget.querySelector("[data-funding-feed]");
+    const status = widget.querySelector("[data-funding-status]");
+
+    const shouldAutoFocusFundingInput = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    const setFundingOpen = (open) => {
+      panel.hidden = !open;
+      widget.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    };
+
+    const scrollFundingFeedToBottom = () => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.requestAnimationFrame(() => {
+        feed.scrollTo({
+          top: feed.scrollHeight,
+          behavior: reduceMotion ? "auto" : "smooth"
+        });
+      });
+    };
+
+    const addFundingMessage = (role, html) => {
+      const message = document.createElement("article");
+      message.className = `funding-chat-message ${role}`;
+      message.innerHTML = html;
+      feed.append(message);
+      scrollFundingFeedToBottom();
+      return message;
+    };
+
+    const setFundingLoading = (loading) => {
+      const button = form.querySelector('button[type="submit"]');
+      const buttonLabel = button?.querySelector("span");
+      widget.classList.toggle("is-loading", loading);
+      if (!button) return;
+      button.disabled = loading;
+      button.setAttribute("aria-busy", String(loading));
+      if (buttonLabel) buttonLabel.textContent = loading ? "Prüfung läuft ..." : "Förderungen prüfen";
+      if (status) {
+        status.hidden = !loading;
+        status.textContent = loading ? "Ich prüfe aktuelle Förderinformationen ..." : "";
+      }
+    };
+
+    toggle.addEventListener("click", () => setFundingOpen(panel.hidden));
+    closeButton.addEventListener("click", () => setFundingOpen(false));
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const message = input.value.trim();
+      const history = readFundingHistory();
+      const missingFacts = getMissingFundingFacts(message, history);
+      widget.classList.add("has-started");
+      addFundingMessage("user", `<strong>Sie</strong><p>${escapeChatHtml(message)}</p>`);
+      input.value = "";
+      input.rows = 2;
+
+      if (missingFacts.length) {
+        addFundingMessage("assistant", renderFundingMissingInfo(missingFacts));
+        input.placeholder = "Fehlende Punkte kurz ergänzen.";
+        if (shouldAutoFocusFundingInput()) input.focus();
+        writeFundingHistory([
+          ...history,
+          { role: "user", content: message },
+          {
+            role: "assistant",
+            content: `Bitte ergänzen: ${missingFacts.map((fact) => fact.question).join(" ")}`
+          }
+        ]);
+        return;
+      }
+
+      setFundingLoading(true);
+      const pending = addFundingMessage("assistant pending", "<strong>Fördercheck</strong><p>Ich recherchiere gerade in österreichischen Förderquellen.</p>");
+
+      try {
+        const response = await fetch("/api/funding-chat/message", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message,
+            history,
+            page: window.location.href,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+          })
+        });
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok || payload.ok === false) {
+          const message404 = "Der Fördercheck-Endpunkt ist noch nicht aktiviert.";
+          throw new Error(
+            response.status === 404
+              ? message404
+              : payload.message || "Der Fördercheck konnte gerade nicht antworten."
+          );
+        }
+
+        pending.remove();
+        const answerText = String(payload.answer || "");
+        const answerHasSources = /(?:^|\n)\s*(?:#{2,4}\s*)?Quellen:?/iu.test(answerText);
+        const answerHtml = [
+          "<strong>Fördercheck</strong>",
+          formatFundingAnswerText(answerText),
+          payload.needsMoreInfo ? "" : renderFundingMatches(payload.matches),
+          payload.needsMoreInfo ? "" : renderFundingList("Nächste Schritte", payload.recommended_actions),
+          renderFundingList(payload.needsMoreInfo ? "Bitte ergänzen" : "Rückfragen", payload.follow_up_questions),
+          payload.needsMoreInfo ? "<small>Danach starte ich die Suche in den österreichischen Förderquellen.</small>" : "",
+          payload.needsMoreInfo || answerHasSources ? "" : renderFundingSources(payload.sources)
+        ].join("");
+        addFundingMessage("assistant", answerHtml);
+        scrollFundingFeedToBottom();
+        writeFundingHistory([
+          ...history,
+          { role: "user", content: message },
+          { role: "assistant", content: String(payload.answer || "") }
+        ]);
+      } catch (error) {
+        pending.remove();
+        addFundingMessage(
+          "assistant",
+          `<strong>Fördercheck</strong><p>${escapeChatHtml(error.message)}</p>`
+        );
+        scrollFundingFeedToBottom();
+      } finally {
+        setFundingLoading(false);
+      }
+    });
+  }
+
   const sectionLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')];
   const sections = sectionLinks
     .map((link) => document.querySelector(link.getAttribute("href")))
