@@ -96,6 +96,10 @@ server {
         return 301 /tickets/;
     }
 
+    location = /tickets/ {
+        try_files /tickets/index.html =404;
+    }
+
     location ~ ^/(.+)\.html$ {
         return 301 /$1$is_args$args;
     }

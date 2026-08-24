@@ -111,21 +111,6 @@ document.documentElement.classList.add("js");
       if (!tourScroll || !tourSticky || !tabs.length || reduceMotion) return;
 
       if (stackedTourQuery.matches) {
-        const focusLine = window.innerHeight * 0.48;
-        let closestIndex = 0;
-        let closestDistance = Number.POSITIVE_INFINITY;
-
-        panels.forEach((panel, index) => {
-          const rect = panel.getBoundingClientRect();
-          const panelFocus = rect.top + Math.min(rect.height * 0.35, 260);
-          const distance = Math.abs(panelFocus - focusLine);
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closestIndex = index;
-          }
-        });
-
-        selectTourStep(closestIndex);
         return;
       }
 
