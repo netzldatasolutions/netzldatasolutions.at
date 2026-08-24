@@ -82,14 +82,16 @@
     if (counter) counter.setAttribute("aria-label", `Schritt ${activeIndex + 1} von ${slides.length}`);
 
     const heading = section.querySelector(".sequence-heading");
+    const keepHeadingVisible = section.classList.contains("combined-story");
     const headingFade = Math.min(Math.max(progress / 0.16, 0), 1);
     const easedHeadingFade = headingFade * headingFade * (3 - 2 * headingFade);
-    const headingVisibility = 1 - easedHeadingFade;
+    const headingVisibility = keepHeadingVisible ? 1 : 1 - easedHeadingFade;
+    const headingShift = keepHeadingVisible ? 0 : -16 * easedHeadingFade;
     const headingSpace = heading ? (heading.offsetHeight + 26) * headingVisibility : 0;
 
     section.style.setProperty("--sequence-progress", String(progress));
     section.style.setProperty("--heading-opacity", headingVisibility.toFixed(3));
-    section.style.setProperty("--heading-shift", `${(-16 * easedHeadingFade).toFixed(2)}px`);
+    section.style.setProperty("--heading-shift", `${headingShift.toFixed(2)}px`);
     section.style.setProperty("--heading-space", `${headingSpace.toFixed(2)}px`);
   };
 
