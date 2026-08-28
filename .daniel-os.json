@@ -1,0 +1,41 @@
+{
+  "$schema": "./.daniel-os.schema.json",
+  "schema_version": 1,
+  "project": {
+    "id": "nds-website-ticket-hub",
+    "name": "NDS Website und Ticket-Hub",
+    "owner": "Netzl Data Solutions",
+    "repository": "netzldatasolutions.at"
+  },
+  "notes": {
+    "primary": "10 Projects/NDS Website und Ticket-Hub/Overview.md",
+    "project_overview": "40 Areas/NDS/Projektübersicht.md",
+    "project_history": "40 Areas/NDS/Projekthistorie.md",
+    "competence_profile": "40 Areas/NDS/Kompetenzprofil.md",
+    "additional": [
+      "60 Memory/Abgeschlossene Projekte/CarEx.md",
+      "40 Areas/NDS/Positionierung und Leistungen.md",
+      "40 Areas/NDS/Nächste Schritte.md"
+    ]
+  },
+  "workflow": {
+    "language": "de",
+    "require_preview": true,
+    "require_write_approval": true,
+    "require_version_check": true,
+    "archive_primary_on_close": false
+  },
+  "data_policy": {
+    "forbid_secrets": true,
+    "forbid_personal_raw_data": true,
+    "allowed_note_paths": [
+      "10 Projects/NDS Website und Ticket-Hub/Overview.md",
+      "40 Areas/NDS/Projektübersicht.md",
+      "40 Areas/NDS/Projekthistorie.md",
+      "40 Areas/NDS/Kompetenzprofil.md",
+      "60 Memory/Abgeschlossene Projekte/CarEx.md",
+      "40 Areas/NDS/Positionierung und Leistungen.md",
+      "40 Areas/NDS/Nächste Schritte.md"
+    ]
+  }
+}
