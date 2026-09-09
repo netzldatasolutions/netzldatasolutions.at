@@ -48,18 +48,69 @@
 
   function normalizeHex(value, fallback) {
     const trimmed = String(value || "").trim();
-    if (/^#[0-9a-f]{6}$/iu.test(trimmed)) {
-      return trimmed.toLowerCase();
+    const normalized = trimmed.startsWith("#") ? trimmed : `#${trimmed}`;
+    if (/^#[0-9a-f]{6}$/iu.test(normalized)) {
+      return normalized.toLowerCase();
     }
     return fallback;
   }
 
-  function syncColor(source, colorInput, textInput) {
-    const fallback = colorInput.value || "#000000";
-    const value = normalizeHex(source.value, fallback);
+  function isCompleteHex(value) {
+    return /^#?[0-9a-f]{6}$/iu.test(String(value || "").trim());
+  }
+
+  function isPartialHex(value) {
+    return /^#?[0-9a-f]{0,6}$/iu.test(String(value || "").trim());
+  }
+
+  function setColorTextValidity(textInput, isInvalid) {
+    if (isInvalid) {
+      textInput.setAttribute("aria-invalid", "true");
+      return;
+    }
+
+    textInput.removeAttribute("aria-invalid");
+  }
+
+  function syncColorFromPicker(colorInput, textInput) {
+    const value = normalizeHex(colorInput.value, "#000000");
     colorInput.value = value;
     textInput.value = value;
+    setColorTextValidity(textInput, false);
     scheduleRender();
+  }
+
+  function syncColorFromText(textInput, colorInput) {
+    if (isCompleteHex(textInput.value)) {
+      const value = normalizeHex(textInput.value, colorInput.value || "#000000");
+      colorInput.value = value;
+      textInput.value = value;
+      setColorTextValidity(textInput, false);
+      scheduleRender();
+      return;
+    }
+
+    setColorTextValidity(textInput, !isPartialHex(textInput.value));
+  }
+
+  function commitColorText(textInput, colorInput) {
+    const value = normalizeHex(textInput.value, colorInput.value || "#000000");
+    colorInput.value = value;
+    textInput.value = value;
+    setColorTextValidity(textInput, false);
+    scheduleRender();
+  }
+
+  function currentColorValue(colorInput, textInput, fallback, forceTextSync) {
+    const value = normalizeHex(colorInput.value, fallback);
+    colorInput.value = value;
+
+    if (forceTextSync || document.activeElement !== textInput || isCompleteHex(textInput.value)) {
+      textInput.value = value;
+      setColorTextValidity(textInput, false);
+    }
+
+    return value;
   }
 
   function createCanvas(qr, size, margin, darkColor, lightColor, transparentBackground) {
@@ -116,14 +167,9 @@
     const value = textInput.value.trim();
     const size = Number(sizeSelect.value);
     const margin = Number(marginInput.value);
-    const foreground = normalizeHex(foregroundTextInput.value, "#1f2933");
-    const background = normalizeHex(backgroundTextInput.value, "#ffffff");
     const transparentBackground = Boolean(transparentBackgroundInput && transparentBackgroundInput.checked);
-
-    foregroundInput.value = foreground;
-    foregroundTextInput.value = foreground;
-    backgroundInput.value = background;
-    backgroundTextInput.value = background;
+    const foreground = currentColorValue(foregroundInput, foregroundTextInput, "#1f2933", false);
+    const background = currentColorValue(backgroundInput, backgroundTextInput, "#ffffff", transparentBackground);
 
     if (backgroundInput) {
       backgroundInput.disabled = transparentBackground;
@@ -307,10 +353,12 @@
     input.addEventListener("change", scheduleRender);
   });
 
-  foregroundInput.addEventListener("input", () => syncColor(foregroundInput, foregroundInput, foregroundTextInput));
-  foregroundTextInput.addEventListener("input", () => syncColor(foregroundTextInput, foregroundInput, foregroundTextInput));
-  backgroundInput.addEventListener("input", () => syncColor(backgroundInput, backgroundInput, backgroundTextInput));
-  backgroundTextInput.addEventListener("input", () => syncColor(backgroundTextInput, backgroundInput, backgroundTextInput));
+  foregroundInput.addEventListener("input", () => syncColorFromPicker(foregroundInput, foregroundTextInput));
+  foregroundTextInput.addEventListener("input", () => syncColorFromText(foregroundTextInput, foregroundInput));
+  foregroundTextInput.addEventListener("blur", () => commitColorText(foregroundTextInput, foregroundInput));
+  backgroundInput.addEventListener("input", () => syncColorFromPicker(backgroundInput, backgroundTextInput));
+  backgroundTextInput.addEventListener("input", () => syncColorFromText(backgroundTextInput, backgroundInput));
+  backgroundTextInput.addEventListener("blur", () => commitColorText(backgroundTextInput, backgroundInput));
   if (transparentBackgroundInput) {
     transparentBackgroundInput.addEventListener("change", scheduleRender);
   }

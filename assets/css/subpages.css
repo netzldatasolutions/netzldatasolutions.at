@@ -373,6 +373,11 @@ html.image-compressor-document {
   box-shadow: 0 0 0 4px rgba(112, 182, 70, 0.12);
 }
 
+.tool-card input[type="text"][aria-invalid="true"] {
+  border-color: #a25f42;
+  box-shadow: 0 0 0 4px rgba(162, 95, 66, 0.1);
+}
+
 .input-with-unit {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
