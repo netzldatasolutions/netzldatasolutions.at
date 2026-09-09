@@ -113,6 +113,15 @@
     return value;
   }
 
+  function updateRangeProgress(input) {
+    const min = Number(input.min);
+    const max = Number(input.max);
+    const value = Number(input.value);
+    const progress = ((value - min) / (max - min)) * 100;
+
+    input.style.setProperty("--range-progress", `${Math.min(Math.max(progress, 0), 100)}%`);
+  }
+
   function createCanvas(qr, size, margin, darkColor, lightColor, transparentBackground) {
     const moduleCount = qr.getModuleCount();
     const totalModules = moduleCount + margin * 2;
@@ -171,6 +180,8 @@
     const foreground = currentColorValue(foregroundInput, foregroundTextInput, "#1f2933", false);
     const background = currentColorValue(backgroundInput, backgroundTextInput, "#ffffff", transparentBackground);
 
+    updateRangeProgress(marginInput);
+
     if (backgroundInput) {
       backgroundInput.disabled = transparentBackground;
     }
@@ -221,6 +232,7 @@
   }
 
   function scheduleRender() {
+    updateRangeProgress(marginInput);
     window.clearTimeout(renderTimer);
     renderTimer = window.setTimeout(renderQr, 120);
   }

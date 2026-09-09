@@ -3143,15 +3143,6 @@ input[type="range"]::-moz-range-thumb {
   font-weight: 800;
 }
 
-.status-ready::before {
-  width: 7px;
-  height: 7px;
-  background: var(--lime);
-  border-radius: 50%;
-  content: "";
-  box-shadow: 0 0 0 5px rgba(167, 223, 97, 0.12);
-}
-
 .workflow-outcomes {
   position: absolute;
   right: 22px;
